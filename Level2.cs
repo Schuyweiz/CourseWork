@@ -87,7 +87,7 @@ namespace Coursework5
         /// <returns>string containing problem expression</returns>
         private string Problem0()
         {
-            string logExpression = CoefChecker(СoefX * CoefX2) + "x<sup>2</sup>" + NumChecker(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) + "x" + NumChecker(Part1Bvalue * Part2Bvalue);
+            string logExpression = CoefChecker(СoefX * CoefX2, "x<sup>2</sup>") + NumChecker(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) + "x" + NumChecker(Part1Bvalue * Part2Bvalue);
             Lhs = Log(BaseValue, logExpression);
             Rhs = LogValue.ToString();
 
@@ -108,8 +108,8 @@ namespace Coursework5
         /// <returns>string containg problem expression</returns>
         private string Problem1()
         {
-            string log1Expression = $"{CoefChecker(СoefX)}x{NumChecker(Part1Bvalue)}";
-            string log2Expression = $"{CoefChecker(CoefX2)}x{NumChecker(Part2Bvalue)}";
+            string log1Expression = $"{CoefChecker(СoefX,"x")}+{NumChecker(Part1Bvalue)}";
+            string log2Expression = $"{CoefChecker(CoefX2,"x")}+{NumChecker(Part2Bvalue)}";
             string log1 = Log(BaseValue, log1Expression);
             string log2 = Log(BaseValue, log2Expression);
             Lhs = log1 + " + " + log2;

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Runtime.Remoting.Messaging;
 
 namespace Coursework5
 {
@@ -46,12 +46,13 @@ namespace Coursework5
             XvalueStr = Xvalue.ToString();
             Substraction = rng.Next(Xvalue/2, Xvalue);
             LogValue = rng.Next(2, 4);
-            LogInnerVal = (int)Math.Pow(Xvalue - Substraction, LogValue);
+            int LogInnerValLowBound = Xvalue - Substraction == 1 ? 2 : Xvalue - Substraction;
+            LogInnerVal = (int)Math.Pow(LogInnerValLowBound, LogValue);
             //expression containing xValue
             Xexpression = "x-" + Substraction;
             Lhs = Log(Xexpression, LogInnerVal);
             Rhs = $"{LogValue}";
-            return MakeFont(Lhs + " = " + Rhs);
+            return MakeFont(DisplayKey()+ Lhs + " = " + Rhs);
         }
         /// <summary>
         /// Generates a logarithmic problem of the type log_base(num^{x+b})=c
@@ -117,8 +118,8 @@ namespace Coursework5
             Coef = rng.Next(1, 3);
             Polynom poly = new Polynom(Xvalue, Xvalue2, Coef);
             BaseValue = rng.Next(2, 6);
-            Lhs = Log(BaseValue, CoefChecker(-poly.ab) + "x" + NumChecker(-poly.b));
-            Rhs = Log(Square(BaseValue), CoefChecker(Square(poly.a)) + "x<sup>4</sup>");
+            Lhs = Log(BaseValue, CoefChecker(-poly.ab,"x")+ NumChecker(-poly.b));
+            Rhs = Log(Square(BaseValue), CoefChecker(Square(poly.a), "x<sup>4</sup>"));
 
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
         }

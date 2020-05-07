@@ -72,7 +72,7 @@ namespace Coursework5
         }
         private string Problem3()
         {
-            Lhs = $"{CoefChecker(LogValueCoef)}" + Log(BaseValue, $"x{NumChecker(Bvalue)}") + NumChecker(RandSubstractionTerm = rng.Next(-LogValue, LogValue));
+            Lhs = $"{CoefChecker(LogValueCoef, Log(BaseValue, $"x{NumChecker(Bvalue)}"))}" + NumChecker(RandSubstractionTerm = rng.Next(-LogValue, LogValue));
             Rhs = $"{LogValue * LogValueCoef - RandSubstractionTerm}";
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
         }

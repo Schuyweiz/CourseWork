@@ -52,7 +52,11 @@ namespace Coursework5
         public virtual string NumChecker(int val) => val == 0 ? "" :
             val > 0 ? "+" + val.ToString() :
             val.ToString();
-        public virtual string CoefChecker(int val) => val == 1 ? "" : val.ToString();
+        public virtual string CoefChecker(int val,string x) => val == 1 ?
+            x:
+            val==0?
+            "" :
+            val.ToString()+x;
         public virtual string Frac(int denom,int nom=1)
         {
             string res = $"<span class=\"frac\"><sup>{nom}</sup>";
