@@ -96,8 +96,9 @@ namespace Coursework5
                     if (val)
                     {
                         SaveFile(problems);
+                        if(FilePath!=null)
+                            HtmlLaunch();
                         MainMenu();
-                        HtmlLaunch();
                     }
                     else
                     {
@@ -171,7 +172,7 @@ namespace Coursework5
         }
         
         private bool LastDigitIsLevel(int num) => num == 1 || num == 2 || num == 3;
-        private bool ProblemNumberChecker(string input) => input.Length < 4 ?
+        private bool ProblemNumberChecker(string input) => input.Length !=4 ?
             false :
             !LastDigitIsLevel(int.Parse(input[3].ToString())) ?
             false :
@@ -296,6 +297,7 @@ namespace Coursework5
         private void HandPick(object sender, EventArgs e)
         {
             buttonHtmlGen.Show();
+            buttonHtmlGen.Enabled = false;
             buttonAddProblem.Show();
             textBoxAmtOfPb.Show();
             labelProblemNumber.Show();
@@ -313,7 +315,8 @@ namespace Coursework5
         {
             Label problemNumber = new Label
             {
-                Location = new Point(labelListOfPbm.Location.X, LabelPointY),
+                Location = new Point(labelListOfPbm.Location.X,
+                labelListOfPbm.Location.Y+LabelPointY),
                 Text = num
             };
             Controls.Add(problemNumber);
@@ -327,6 +330,7 @@ namespace Coursework5
             Problems.Add(pb.HtmlFormula);
             Answers.Add(pb.DisplayAnswers());
             NewProblemLabel(problemNum);
+            buttonHtmlGen.Enabled = true;
         }
         #endregion
 
@@ -349,7 +353,7 @@ namespace Coursework5
 
         private void HtmlLaunch()=> System.Diagnostics.Process.Start(FilePath);
 
-
+        
 
 
 
@@ -361,6 +365,7 @@ namespace Coursework5
             LabelPointY = 20;
             Point p = buttonHtmlGen.Location;
             buttonHtmlGen.Location = new Point(p.X, ButtonHtmlGenY);
+            FilePath = null;
         }
     }
 }

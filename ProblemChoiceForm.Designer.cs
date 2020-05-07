@@ -137,9 +137,9 @@
             this.labelListOfPbm.AutoSize = true;
             this.labelListOfPbm.Location = new System.Drawing.Point(12, 9);
             this.labelListOfPbm.Name = "labelListOfPbm";
-            this.labelListOfPbm.Size = new System.Drawing.Size(98, 17);
+            this.labelListOfPbm.Size = new System.Drawing.Size(102, 17);
             this.labelListOfPbm.TabIndex = 10;
-            this.labelListOfPbm.Text = "Список задач";
+            this.labelListOfPbm.Text = "Список задач:";
             // 
             // buttonAnswersOnOff
             // 
