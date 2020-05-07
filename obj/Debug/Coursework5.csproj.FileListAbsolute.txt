@@ -1,0 +1,13 @@
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\bin\Debug\Coursework5.exe.config
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\bin\Debug\Coursework5.exe
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\bin\Debug\Coursework5.pdb
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.csprojAssemblyReference.cache
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.Properties.Resources.resources
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.csproj.GenerateResource.cache
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.exe
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.pdb
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\bin\Debug\WpfMath.dll
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.csproj.CopyComplete
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.csproj.CoreCompileInputs.cache
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.ProblemChoiceForm.resources
+C:\Users\kiril\OneDrive\Рабочий стол\Coursework5\Coursework5\obj\Debug\Coursework5.SaveFile.resources
