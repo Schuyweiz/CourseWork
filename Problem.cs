@@ -26,6 +26,7 @@ namespace Coursework5
         public int Position { get => position; set => position=value; }
         public string XvalueStr2 { get => xValueStr2; set => xValueStr2 = value; }
         public string XvalueStr { get => xValueStr; set => xValueStr = value; }
+        public int Xvalue { get => xValue; set => xValue = value; }
         public int Xvalue2 { get => xValue2; set => xValue2 = value; }
         public int RandSubstractionTerm { get => randSubstractionTerm; set => randSubstractionTerm = value; }
         public string HtmlFormula { get => htmlFormula; set => htmlFormula = value; }
@@ -35,7 +36,6 @@ namespace Coursework5
         public int Bvalue { get => bValue; set => bValue = value; }
         public string Rhs { get => rhs; set => rhs=value; }
         public string Lhs { get => lhs; set => lhs = value; }
-        public int Xvalue { get => xValue; set => xValue = value; }
         #endregion
 
         public virtual string GenerateKey(int position)

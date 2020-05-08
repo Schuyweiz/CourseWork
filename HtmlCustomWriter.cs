@@ -34,12 +34,11 @@ namespace Coursework5
             " span.frac > span {display: none;}";
         #endregion
 
-        #region properties
         private string Style() => "<style>" + boxStyle +fractionStyle+ "</style><body>";
         private string Div(string s, string divClass) => $"<div class=\"{divClass}\">" + s + "</div>";
         private List<string> pbs;
         private List<string> answers;
-        #endregion
+        
         public HtmlCustomWriter(List<string> pbs, List<string> answers)
         {
             this.pbs = pbs;

@@ -182,7 +182,5 @@ namespace Coursework5
                 $"x = {XvalueStr}" :
                 $"x<sub>1</sub> = {XvalueStr} | x<sub>2</sub> = {XvalueStr2}";
         }
-
-
     }
 }
