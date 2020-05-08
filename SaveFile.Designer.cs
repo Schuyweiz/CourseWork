@@ -35,20 +35,20 @@
             // 
             // buttonSaveAndOpen
             // 
-            this.buttonSaveAndOpen.Location = new System.Drawing.Point(12, 122);
+            this.buttonSaveAndOpen.Location = new System.Drawing.Point(37, 122);
             this.buttonSaveAndOpen.Name = "buttonSaveAndOpen";
-            this.buttonSaveAndOpen.Size = new System.Drawing.Size(142, 66);
+            this.buttonSaveAndOpen.Size = new System.Drawing.Size(117, 51);
             this.buttonSaveAndOpen.TabIndex = 0;
-            this.buttonSaveAndOpen.Text = "Сохранить файл и открыть его в браузере\r\n";
+            this.buttonSaveAndOpen.Text = "Сохранить и открыть \r\n\r\n";
             this.buttonSaveAndOpen.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(174, 122);
+            this.buttonSave.Location = new System.Drawing.Point(187, 122);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(148, 66);
+            this.buttonSave.Size = new System.Drawing.Size(117, 51);
             this.buttonSave.TabIndex = 1;
-            this.buttonSave.Text = "Сохранить файл\r\n";
+            this.buttonSave.Text = "Сохранить\r\n";
             this.buttonSave.UseVisualStyleBackColor = true;
             // 
             // label1

@@ -41,6 +41,8 @@
             this.textBoxProblemNum = new System.Windows.Forms.TextBox();
             this.labelListOfPbm = new System.Windows.Forms.Label();
             this.buttonAnswersOnOff = new System.Windows.Forms.Button();
+            this.labelHint = new System.Windows.Forms.Label();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonHtmlGen
@@ -151,11 +153,36 @@
             this.buttonAnswersOnOff.UseVisualStyleBackColor = true;
             this.buttonAnswersOnOff.Visible = false;
             // 
+            // labelHint
+            // 
+            this.labelHint.AutoSize = true;
+            this.labelHint.Location = new System.Drawing.Point(568, 140);
+            this.labelHint.Name = "labelHint";
+            this.labelHint.Size = new System.Drawing.Size(202, 153);
+            this.labelHint.TabIndex = 12;
+            this.labelHint.Text = "Подсказка:\r\n\r\nНомера задач имеют \r\nчетырёхзначный номер\r\nи оканчиваются на 1,2 ил" +
+    "и 3.\r\nВ список можно добавить\r\nдо 10 задач.\r\n\r\nПример: 0112";
+            this.labelHint.Visible = false;
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.Image = ((System.Drawing.Image)(resources.GetObject("buttonExit.Image")));
+            this.buttonExit.Location = new System.Drawing.Point(677, 9);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(93, 71);
+            this.buttonExit.TabIndex = 13;
+            this.buttonExit.Text = "выйти";
+            this.buttonExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Visible = false;
+            // 
             // ProblemChoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 453);
+            this.Controls.Add(this.buttonExit);
+            this.Controls.Add(this.labelHint);
             this.Controls.Add(this.buttonAnswersOnOff);
             this.Controls.Add(this.labelListOfPbm);
             this.Controls.Add(this.textBoxProblemNum);
@@ -190,6 +217,8 @@
         private System.Windows.Forms.TextBox textBoxProblemNum;
         private System.Windows.Forms.Label labelListOfPbm;
         private System.Windows.Forms.Button buttonAnswersOnOff;
+        private System.Windows.Forms.Label labelHint;
+        private System.Windows.Forms.Button buttonExit;
     }
 }
 

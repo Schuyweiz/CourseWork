@@ -65,7 +65,7 @@ namespace Coursework5
             return res;
         }
         public virtual string MakeFont(string expression) => $"<p><font face=\"Script\">"+expression+"</p>";
-        public virtual string DisplayKey() => $"<small>№ {Key})</small>&ensp;&ensp;";
+        public virtual string DisplayKey() => $"<small>№ {Key}</small>&ensp;&ensp;";
         public abstract string GenerateProblem(int count);
 
         public virtual string SimplifyFrac(int nom, int denom)

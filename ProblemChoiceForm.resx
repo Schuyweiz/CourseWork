@@ -118,6 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJ
+        TUUH5AUIBhM7mDyArwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEuSURBVDhP
+        jdNdKwRRHMfx4+liJe6wW7Ra74HwFuRFKLLFhQsuZXOxREoekudr8iakJUqt1b4AijtKcev7O2dMO7vH
+        jF996n/+zZyZOXOO8SSFCazhDLuYQQaJmcIbrlFAHgu4wDf20YmGNOEQTxhWw5MszlFFWo3aLOMO3tlr
+        ogdtQde2qaEM4h19dhRNB3KuDNOCB8zZEdkI1KcLt9Ba1GcUR640poIxV4bRzTc4RrMacflEtytt2vGC
+        MlZRjDEPO0GPiiCa4Bn/nuARf33CCRI/YR2browkbhGHEC6iftMH+u0oGt9v1BtdYdaOgizhHnpqXHTz
+        NvRmrWr8RjvsANqmI2p4MgCdCW33XjV8mcQrSliBDtMiLvGFPSRtd3ucx6HfdIodTKPhABljzA+SjjzA
+        ggT5jQAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAABMLAAATCwAAAAAAAAAA

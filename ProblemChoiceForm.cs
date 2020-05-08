@@ -37,6 +37,8 @@ namespace Coursework5
             buttonAddProblem.Click += ProblemAmtChecker;
 
             buttonAnswersOnOff.Click += AnswersOnOff;
+
+            buttonExit.Click += OnExitButtonClick;
             #endregion
             textBoxAmtOfPb.Text = "10";
             Parser = new ProblemChoiceParser();
@@ -82,6 +84,11 @@ namespace Coursework5
                 MainMenu();
             }
         }
+        private void OnExitButtonClick(object sender, EventArgs e)
+        {
+            LevelButtonsSwitch(sender, e);
+            MainMenu();
+        }
         private void SaveLoadInteraction(object sender, EventArgs e)
         {
             using (SaveFile form = new SaveFile())
@@ -113,6 +120,7 @@ namespace Coursework5
             using (SaveFileDialog save = new SaveFileDialog())
             {
                 save.Filter = "html files (*.html)|*.html|All files (*.*)|*.*";
+                save.FileName = "Список задач";
                 save.FilterIndex = 1;
                 save.RestoreDirectory = true;
                 if (save.ShowDialog() == DialogResult.OK)
@@ -212,6 +220,7 @@ namespace Coursework5
                 buttonAddProblem.Hide();
                 buttonHtmlGen.Hide();
                 buttonAnswersOnOff.Hide();
+                buttonExit.Hide();
                 foreach (var lbl in Controls.OfType<Label>())
                     lbl.Hide();
                 foreach (var lbl in Controls.OfType<TextBox>())
@@ -243,6 +252,7 @@ namespace Coursework5
         {
             buttonHtmlGen.Show();
             textBoxAmtOfPb.Show();
+            buttonExit.Show();
             labelAmountOfProblems.Show();
         }
         #endregion
@@ -294,14 +304,21 @@ namespace Coursework5
         #endregion 
 
         #region Hand pick choice methods
+        /// <summary>
+        /// Genrates interface for the problem hand picking menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HandPick(object sender, EventArgs e)
         {
-            buttonHtmlGen.Show();
             buttonHtmlGen.Enabled = false;
+            buttonHtmlGen.Show();
             buttonAddProblem.Show();
             textBoxAmtOfPb.Show();
             labelProblemNumber.Show();
             labelListOfPbm.Show();
+            labelHint.Show();
+            buttonExit.Show();
             Point p = buttonHtmlGen.Location;
             buttonHtmlGen.Location = new Point(p.X, p.Y + 50);
         }
@@ -362,6 +379,8 @@ namespace Coursework5
             Problems = new List<string>();
             Answers = new List<string>();
             buttonAddProblem.Enabled = true;
+            buttonHtmlGen.Enabled = true;
+            labelHint.Hide();
             LabelPointY = 20;
             Point p = buttonHtmlGen.Location;
             buttonHtmlGen.Location = new Point(p.X, ButtonHtmlGenY);
