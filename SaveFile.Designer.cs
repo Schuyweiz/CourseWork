@@ -69,7 +69,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonSaveAndOpen);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SaveFile";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SaveFile";
             this.ResumeLayout(false);
             this.PerformLayout();

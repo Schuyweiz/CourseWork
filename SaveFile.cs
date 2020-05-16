@@ -8,7 +8,6 @@ namespace Coursework5
         public SaveFile()
         {
             InitializeComponent();
-            this.CenterToParent();
             this.Text = "";
             buttonSave.Click += UserAnswerSave;
             buttonSaveAndOpen.Click += UserAnswerSaveLoad;

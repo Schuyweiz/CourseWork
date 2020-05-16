@@ -48,7 +48,10 @@ namespace Coursework5
             ButtonHtmlGenY = buttonHtmlGen.Location.Y;
             AnswersOn = true;
             AmountOfProblems = 0;
+
+            
         }
+        readonly Random rng = new Random();
         #region fields
         private int ButtonHtmlGenY { get; set; }
         private int labelPointY = 20;
@@ -203,7 +206,6 @@ namespace Coursework5
             if (AmountOfProblems < 1 || AmountOfProblems > 10)
                 buttonAddProblem.Enabled = false;
         }
-        readonly Random rng = new Random();
         private void LevelButtonsSwitch(object sender, EventArgs e)
         {
             Buttons = !Buttons;

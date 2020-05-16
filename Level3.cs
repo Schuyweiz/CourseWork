@@ -47,6 +47,8 @@ namespace Coursework5
             LogValue = rng.Next(2, 4);
             int LogInnerValLowBound = Xvalue - Substraction == 1 ? 2 : Xvalue - Substraction;
             LogInnerVal = (int)Math.Pow(LogInnerValLowBound, LogValue);
+            //if log value is an even number, then there are 2 solutions
+            XvalueStr2 = LogValue % 2 == 0 ? (-LogInnerValLowBound + Substraction).ToString() : null;
             //expression containing xValue
             Xexpression = "x-" + Substraction;
             Lhs = Log(Xexpression, LogInnerVal);
@@ -154,3 +156,4 @@ namespace Coursework5
         }
     }
 }
+

@@ -20,15 +20,7 @@ namespace Coursework5
         public int Part2Bvalue { get; set; }
         
 
-        /// <summary>
-        /// contains bValue in log_base(x+bValue)=log1Value expression
-        /// </summary>
-        /// <summary>
-        /// contains bValue in log_base(x+bValue)=log2Value expression
-        /// </summary>
-        /// <summary>
-        /// X coefficient
-        /// </summary>
+        
 
         public Level2(int seedVal)
         {
@@ -49,8 +41,7 @@ namespace Coursework5
             //type 1 problems
             else
             {
-                this.Xvalue = rng.Next(1, 11);
-                Xvalue = Xvalue == 0 ? Xvalue + 1 : Xvalue;
+                this.Xvalue = rng.Next(2, 11);
                 XvalueStr = Xvalue.ToString();
                 СoefX = rng.Next(1, 6);
 
@@ -108,12 +99,21 @@ namespace Coursework5
         /// <returns>string containg problem expression</returns>
         private string Problem1()
         {
-            string log1Expression = $"{CoefChecker(СoefX,"x")}+{NumChecker(Part1Bvalue)}";
-            string log2Expression = $"{CoefChecker(CoefX2,"x")}+{NumChecker(Part2Bvalue)}";
+            string log1Expression = $"{CoefChecker(СoefX,"x")}{NumChecker(Part1Bvalue)}";
+            string log2Expression = $"{CoefChecker(CoefX2,"x")}{NumChecker(Part2Bvalue)}";
             string log1 = Log(BaseValue, log1Expression);
             string log2 = Log(BaseValue, log2Expression);
-            Lhs = log1 + " + " + log2;
-            Rhs = $"{LogValue}";
+
+            if (rng.Next(0, 2) == 1)
+            {
+                Lhs = log1 + " + " + log2;
+                Rhs = $"{LogValue}";
+            }
+            else
+            {
+                Lhs = log1;
+                Rhs = $"{LogValue}"+" - " + log2;
+            }
 
             Xvalue2 = -(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) - Xvalue;
             XvalueStr2 = CoefX2 * Xvalue2 + Part2Bvalue > 0 && CoefX2 * Xvalue2 + Part1Bvalue > 0 ? Xvalue2.ToString() : null;
@@ -128,11 +128,13 @@ namespace Coursework5
         /// <returns>string containing a problem expression</returns>
         private string Problem2()
         {
-            Xvalue = rng.Next(2, 7);
-            XvalueStr = Xvalue.ToString();
-            int logValue = rng.Next(3, 10 - Xvalue);
+            //Getting rid of obnoxiously large numbers
+            int logValueUpperLim = 11 / (6 - (int)Math.Pow(2, (12-Xvalue) / 5)) + (12-Xvalue) / 5 + 3 * ((12-Xvalue) / 10);
+            int logValue = rng.Next(2, logValueUpperLim);
+
             Lhs = Log("x", (int)Math.Pow(Xvalue, logValue));
             Rhs = $"{logValue}";
+
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
         }
         /// <summary>
@@ -169,7 +171,7 @@ namespace Coursework5
             Key = GenerateKey(Position) + "2";
             GenerateXval(Position);
             GenerateValuesGeneral();
-            this.HtmlFormula = GenerateProblem(Position % 4);
+            this.HtmlFormula = GenerateProblem(seed%4);
         }
 
         public override string DisplayAnswers()
