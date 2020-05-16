@@ -41,8 +41,9 @@
             this.textBoxProblemNum = new System.Windows.Forms.TextBox();
             this.labelListOfPbm = new System.Windows.Forms.Label();
             this.buttonAnswersOnOff = new System.Windows.Forms.Button();
-            this.labelHint = new System.Windows.Forms.Label();
+            this.labelHintHandPick = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
+            this.roundButtonInfo = new Coursework5.RoundButton();
             this.SuspendLayout();
             // 
             // buttonHtmlGen
@@ -129,7 +130,7 @@
             // 
             // textBoxProblemNum
             // 
-            this.textBoxProblemNum.Location = new System.Drawing.Point(350, 82);
+            this.textBoxProblemNum.Location = new System.Drawing.Point(350, 80);
             this.textBoxProblemNum.Name = "textBoxProblemNum";
             this.textBoxProblemNum.Size = new System.Drawing.Size(100, 22);
             this.textBoxProblemNum.TabIndex = 9;
@@ -153,16 +154,16 @@
             this.buttonAnswersOnOff.UseVisualStyleBackColor = true;
             this.buttonAnswersOnOff.Visible = false;
             // 
-            // labelHint
+            // labelHintHandPick
             // 
-            this.labelHint.AutoSize = true;
-            this.labelHint.Location = new System.Drawing.Point(568, 140);
-            this.labelHint.Name = "labelHint";
-            this.labelHint.Size = new System.Drawing.Size(202, 153);
-            this.labelHint.TabIndex = 12;
-            this.labelHint.Text = "Подсказка:\r\n\r\nНомера задач имеют \r\nчетырёхзначный номер\r\nи оканчиваются на 1,2 ил" +
+            this.labelHintHandPick.AutoSize = true;
+            this.labelHintHandPick.Location = new System.Drawing.Point(490, 107);
+            this.labelHintHandPick.Name = "labelHintHandPick";
+            this.labelHintHandPick.Size = new System.Drawing.Size(202, 153);
+            this.labelHintHandPick.TabIndex = 12;
+            this.labelHintHandPick.Text = "Подсказка:\r\n\r\nНомера задач имеют \r\nчетырёхзначный номер\r\nи оканчиваются на 1,2 ил" +
     "и 3.\r\nВ список можно добавить\r\nдо 10 задач.\r\n\r\nПример: 0112";
-            this.labelHint.Visible = false;
+            this.labelHintHandPick.Visible = false;
             // 
             // buttonExit
             // 
@@ -176,13 +177,28 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Visible = false;
             // 
+            // roundButtonInfo
+            // 
+            this.roundButtonInfo.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.roundButtonInfo.FlatAppearance.BorderSize = 0;
+            this.roundButtonInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.roundButtonInfo.Image = ((System.Drawing.Image)(resources.GetObject("roundButtonInfo.Image")));
+            this.roundButtonInfo.Location = new System.Drawing.Point(470, 80);
+            this.roundButtonInfo.Name = "roundButtonInfo";
+            this.roundButtonInfo.Size = new System.Drawing.Size(25, 25);
+            this.roundButtonInfo.TabIndex = 14;
+            this.roundButtonInfo.Text = "infoButton";
+            this.roundButtonInfo.UseVisualStyleBackColor = false;
+            this.roundButtonInfo.Visible = false;
+            // 
             // ProblemChoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(782, 453);
+            this.Controls.Add(this.roundButtonInfo);
             this.Controls.Add(this.buttonExit);
-            this.Controls.Add(this.labelHint);
+            this.Controls.Add(this.labelHintHandPick);
             this.Controls.Add(this.buttonAnswersOnOff);
             this.Controls.Add(this.labelListOfPbm);
             this.Controls.Add(this.textBoxProblemNum);
@@ -196,6 +212,7 @@
             this.Controls.Add(this.buttonHandPick);
             this.Controls.Add(this.buttonHtmlGen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ProblemChoiceForm";
@@ -220,8 +237,9 @@
         private System.Windows.Forms.TextBox textBoxProblemNum;
         private System.Windows.Forms.Label labelListOfPbm;
         private System.Windows.Forms.Button buttonAnswersOnOff;
-        private System.Windows.Forms.Label labelHint;
+        private System.Windows.Forms.Label labelHintHandPick;
         private System.Windows.Forms.Button buttonExit;
+        private RoundButton roundButtonInfo;
     }
 }
 

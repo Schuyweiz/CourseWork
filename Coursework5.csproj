@@ -84,6 +84,9 @@
     <Compile Include="ProblemChoiceParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoundButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SaveFile.cs">
       <SubType>Form</SubType>
     </Compile>

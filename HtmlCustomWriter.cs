@@ -32,9 +32,21 @@ namespace Coursework5
             "}" +
             " span.frac > sup {border-bottom: 0.1em solid;} " +
             " span.frac > span {display: none;}";
+        private readonly string logPowStyle =
+            "span.logPow { display: inline-block;" +
+            " vertical-align: -5px;" +
+            " text-align: center;" +
+            " font-size: 10px;" +
+            " font-weight: 700" +
+            "}" +
+            " span.logPow > sup, span.logPow > sub {display: block;" +
+            " font: inherit;" +
+            " padding: 0 0.01em; " +
+            "}" +
+            " span.logPow > span {display: none;}";
         #endregion
 
-        private string Style() => "<style>" + boxStyle +fractionStyle+ "</style><body>";
+        private string Style() => "<style>" + boxStyle +fractionStyle+logPowStyle+ "</style><body>";
         private string Div(string s, string divClass) => $"<div class=\"{divClass}\">" + s + "</div>";
         private List<string> pbs;
         private List<string> answers;

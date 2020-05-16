@@ -15,12 +15,12 @@ namespace Coursework5
         //those 2 logs
         private int LogVal1 { get; set; }
         private int LogVal2 { get; set; }
-       
+
         public int Part1Bvalue { get; set; }
         public int Part2Bvalue { get; set; }
-        
 
-        
+
+
 
         public Level2(int seedVal)
         {
@@ -66,7 +66,7 @@ namespace Coursework5
                 case 1:
                     return Problem1();
                 case 2:
-                    return Problem2() ;
+                    return Problem2();
                 case 3:
                     return Problem3();
             }
@@ -78,17 +78,21 @@ namespace Coursework5
         /// <returns>string containing problem expression</returns>
         private string Problem0()
         {
-            string logExpression = CoefChecker(СoefX * CoefX2, "x<sup>2</sup>") + NumChecker(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) + "x" + NumChecker(Part1Bvalue * Part2Bvalue);
+            Polynom p = new Polynom(Position);
+            p.GeneratePolynom();
+            //expression we have is (x-xValue)(coef*x-xValueNom2)=0
+            Xvalue = p.xValue1;
+            //xVAlue2 will be put down in case it exists
+
+            p.c+=rng.Next(0,2)==1? -(int)Math.Pow(BaseValue, LogValue): (int)Math.Pow(BaseValue, LogValue);
+            //now we have the expression log(polynome+c) = log(c) = LogValue
+            //Lets check the possibility of x1 x2 giving a non erroneous answer
+            XvalueStr = p.Calculate(Xvalue) > 0 ? Xvalue.ToString() : null;
+            XvalueStr2 = p.Calculate(p.xValueNom2 / (double)p.xValueDenom2) > 0 ? Frac(p.xValueDenom2, p.xValueNom2) : null;
+
+            string logExpression = CoefChecker(p.a, "x<sup>2</sup>") + CoefChecker(p.b,"x")+ NumChecker(p.c);
             Lhs = Log(BaseValue, logExpression);
             Rhs = LogValue.ToString();
-
-            double tempVal2 = -(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) / СoefX * CoefX2 - Xvalue;
-            Polynom poly = new Polynom(СoefX * CoefX2, Part1Bvalue * CoefX2 + Part2Bvalue * СoefX, Part1Bvalue * Part2Bvalue, true);
-            //TODO pol2 for the entire polynome
-            XvalueStr2 = poly.Calculate(tempVal2) > 0 ?
-                SimplifyFrac(СoefX * CoefX2, -(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) - Xvalue * СoefX * CoefX2) :
-                 null;
-            XvalueStr = poly.Calculate(Xvalue) > 0 ? Xvalue.ToString() : null;
 
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
         }
@@ -99,8 +103,8 @@ namespace Coursework5
         /// <returns>string containg problem expression</returns>
         private string Problem1()
         {
-            string log1Expression = $"{CoefChecker(СoefX,"x")}{NumChecker(Part1Bvalue)}";
-            string log2Expression = $"{CoefChecker(CoefX2,"x")}{NumChecker(Part2Bvalue)}";
+            string log1Expression = $"{CoefChecker(СoefX, "x")}{NumChecker(Part1Bvalue)}";
+            string log2Expression = $"{CoefChecker(CoefX2, "x")}{NumChecker(Part2Bvalue)}";
             string log1 = Log(BaseValue, log1Expression);
             string log2 = Log(BaseValue, log2Expression);
 
@@ -112,7 +116,7 @@ namespace Coursework5
             else
             {
                 Lhs = log1;
-                Rhs = $"{LogValue}"+" - " + log2;
+                Rhs = $"{LogValue}" + " - " + log2;
             }
 
             Xvalue2 = -(Part1Bvalue * CoefX2 + Part2Bvalue * СoefX) - Xvalue;
@@ -129,7 +133,7 @@ namespace Coursework5
         private string Problem2()
         {
             //Getting rid of obnoxiously large numbers
-            int logValueUpperLim = 11 / (6 - (int)Math.Pow(2, (12-Xvalue) / 5)) + (12-Xvalue) / 5 + 3 * ((12-Xvalue) / 10);
+            int logValueUpperLim = 11 / (6 - (int)Math.Pow(2, (12 - Xvalue) / 5)) + (12 - Xvalue) / 5 + 3 * ((12 - Xvalue) / 10);
             int logValue = rng.Next(2, logValueUpperLim);
 
             Lhs = Log("x", (int)Math.Pow(Xvalue, logValue));
@@ -147,20 +151,17 @@ namespace Coursework5
         {
             //problem type is (a*log_base(x1)-1) * (a'log_base(x2)-1) = 0
             int root1 = 1;
-            int a = rng.Next(2, 5);
+            int aUpperLim = 9 / (6 - (int)Math.Pow(2, (12 - Xvalue) / 5)) + 2 * ((12 - Xvalue) / 10);
+            int a = rng.Next(1, aUpperLim+1);
             int root2 = rng.Next(2, 4);
             int aPrime = rng.Next(1, 5);
-            Xvalue = rng.Next(2, 6);
-            XvalueStr = Xvalue.ToString();
-            //making a coef for the first term
-            //coefBase * coefLog1 * Log_base(x1) + 
             BaseValue = (int)Math.Pow(Xvalue, a);
 
             XvalueStr2 = Math.Pow(BaseValue, (double)root2 / aPrime) % 1 == 0 ?
                 Math.Pow(BaseValue, (double)root2 / aPrime).ToString() :
                 BaseValue.ToString() + "<sup><sup><sup>" + Frac(aPrime, root2) + "</sup></sup></sup>";
 
-            Lhs = $"{a * aPrime}({Log(BaseValue, "x")})<sup>2</sup>-{a * root2 + aPrime * root1}{Log(BaseValue, "x")}+{root1 * root2}";
+            Lhs = $"{a * aPrime}{"log"+LogPow(BaseValue,2,"x")}-{a * root2 + aPrime * root1}{Log(BaseValue, "x")}+{root1 * root2}";
             Rhs = $"0";
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
 
@@ -171,7 +172,7 @@ namespace Coursework5
             Key = GenerateKey(Position) + "2";
             GenerateXval(Position);
             GenerateValuesGeneral();
-            this.HtmlFormula = GenerateProblem(seed%4);
+            this.HtmlFormula = GenerateProblem(Position % 4);
         }
 
         public override string DisplayAnswers()

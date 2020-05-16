@@ -15,7 +15,7 @@ namespace Coursework5
             this.CenterToScreen();
             this.Text = "Генератор задач";
             #region initialising events for buttons
-            buttonHtmlGen.Click += HtmlGenButton_Click;
+            buttonHtmlGen.Click += HtmlGenButtonClick;
 
 
             buttonLevel1.Click += Level1Choice;
@@ -49,7 +49,9 @@ namespace Coursework5
             AnswersOn = true;
             AmountOfProblems = 0;
 
-            
+            //info button handling
+            roundButtonInfo.MouseHover += ShowHint;
+            roundButtonInfo.MouseLeave += HideHint;
         }
         readonly Random rng = new Random();
         #region fields
@@ -67,7 +69,7 @@ namespace Coursework5
         private string FilePath { get; set; }
         #endregion
 
-        private void HtmlGenButton_Click(object sender, EventArgs e)
+        private void HtmlGenButtonClick(object sender, EventArgs e)
         {
             if (labelListOfPbm.Visible == false)
             {
@@ -223,6 +225,7 @@ namespace Coursework5
                 buttonHtmlGen.Hide();
                 buttonAnswersOnOff.Hide();
                 buttonExit.Hide();
+                roundButtonInfo.Hide();
                 foreach (var lbl in Controls.OfType<Label>())
                     lbl.Hide();
                 foreach (var lbl in Controls.OfType<TextBox>())
@@ -319,8 +322,8 @@ namespace Coursework5
             textBoxAmtOfPb.Show();
             labelProblemNumber.Show();
             labelListOfPbm.Show();
-            labelHint.Show();
             buttonExit.Show();
+            roundButtonInfo.Show();
             Point p = buttonHtmlGen.Location;
             buttonHtmlGen.Location = new Point(p.X, p.Y + 50);
         }
@@ -372,7 +375,10 @@ namespace Coursework5
 
         private void HtmlLaunch()=> System.Diagnostics.Process.Start(FilePath);
 
-        
+        private void ShowHint(object sender, EventArgs e)=> labelHintHandPick.Visible = true;
+
+        private void HideHint(object sender, EventArgs e)=> labelHintHandPick.Visible = false;
+
 
 
 
@@ -382,7 +388,7 @@ namespace Coursework5
             Answers = new List<string>();
             buttonAddProblem.Enabled = true;
             buttonHtmlGen.Enabled = true;
-            labelHint.Hide();
+            labelHintHandPick.Hide();
             LabelPointY = 20;
             Point p = buttonHtmlGen.Location;
             buttonHtmlGen.Location = new Point(p.X, ButtonHtmlGenY);

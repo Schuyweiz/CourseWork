@@ -119,7 +119,7 @@ namespace Coursework5
             Coef = rng.Next(1, 3);
             Polynom poly = new Polynom(Xvalue, Xvalue2, Coef);
             BaseValue = rng.Next(2, 6);
-            Lhs = Log(BaseValue, CoefChecker(-poly.ab,"x")+ NumChecker(-poly.b));
+            Lhs = Log(BaseValue, CoefChecker(-poly.b,"x")+ NumChecker(-poly.c));
             Rhs = Log(Square(BaseValue), CoefChecker(Square(poly.a), "x<sup>4</sup>"));
 
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
