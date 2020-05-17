@@ -18,18 +18,21 @@ namespace Coursework5
             #region initialising events for buttons
             //generate
             buttonSaveFile.Click += ButtonSaveFileClick;
-            buttonPreviewGen.Click += Preview;
 
             foreach (Button button in LevelButtons)
             {
                 AssignGenerateProblems(button);
                 button.Click += LevelPick;
-                button.Click += AnswersOnOffView;
+                //button.Click += AnswersOnOffView;
                 button.Click += AssignGenerateProblemsPreview;
+                button.Click += ProblemSetType;
             }
 
             buttonHandPick.Click += HandPick;
-            buttonHandPick.Click += AnswersOnOffView;
+            buttonHandPick.Click += AssignGenerateProblemsPreview;
+
+            buttonProblemSetPick.Click += SetPick;
+            buttonProblemSetPick.Click += AssignGenerateProblemsPreview;
 
             buttonAddProblem.Click += ProblemNumberCheck;
 
@@ -58,20 +61,23 @@ namespace Coursework5
             InitializeMainMenuControls();
             InitializeHandPickControls();
             InitializeLevelControls();
+            InitializeProblemSetPickControls();
+
+            //
+            //buttonProblemSetLoad.Click += ProblemSetKeyTextBoxChecker;
+            //buttonProblemSetLoad.Click += Preview;
 
             Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
             MainMenuControls.ForEach(x => x.Show());
         }
 
-        private Size FormSize { get; set; }
-        readonly Random rng = new Random();
-        private List<Button> LevelButtons { get; set; }
-        private HtmlCustomWriter HTML { get; set; }
+
 
         #region Controls lists
         private List<Control> MainMenuControls;
         private List<Control> LevelControls;
         private List<Control> HandPickControls;
+        private List<Control> ProblemSetPickControls;
         private void InitializeMainMenuControls()
         {
             var res = new List<Control>();
@@ -79,6 +85,7 @@ namespace Coursework5
             res.Add(buttonLevel2);
             res.Add(buttonLevel3);
             res.Add(buttonHandPick);
+            res.Add(buttonProblemSetPick);
             MainMenuControls = res;
         }
         private void InitializeLevelControls()
@@ -93,6 +100,20 @@ namespace Coursework5
             res.Add(labelAmountOfProblems);
             res.Add(label1);
             LevelControls = res;
+        }
+        private void InitializeProblemSetPickControls()
+        {
+            var res = new List<Control>();
+            res.Add(buttonAnswersOnOff);
+            res.Add(buttonExit);
+            res.Add(buttonSaveFile);
+            res.Add(buttonPreviewGen);
+            res.Add(textBoxProblemSetPick);
+            res.Add(webBrowserPreview);
+            res.Add(labelAmountOfProblems);
+            res.Add(label1);
+            //res.Add(buttonProblemSetLoad);
+            ProblemSetPickControls = res;
         }
         private void InitializeHandPickControls()
         {
@@ -114,15 +135,21 @@ namespace Coursework5
 
         private void Preview(object sender, EventArgs e)
         {
-            if (labelProblemNumber.Visible)
+            string amount = null;
+            if (labelProblemNumber.Visible || textBoxProblemSetPick.Visible)
+            {
                 HTML = new HtmlCustomWriter(Problems, Answers);
+            }
             else
             {
                 PickProblems(int.Parse(textBoxAmtOfPb.Text));
+                amount = textBoxAmtOfPb.Text;
+                ProblemSetKeyAssign(amount);
                 HTML = new HtmlCustomWriter(Problems, Answers);
             }
             string htmlContent = AnswersOn ? HTML.PreviewTasksAnswers() : HTML.PreviewTasks();
             webBrowserPreview.DocumentText = htmlContent;
+            label1.Text = "Предпросмотр списка заданий. Блок №" + ProblemSetKey;
 
             buttonSaveFile.Enabled = true;
         }
@@ -133,12 +160,22 @@ namespace Coursework5
             {
                 case "buttonLevel1":
                     buttonPreviewGen.Click += Level1ChoiceProblems;
+                    buttonPreviewGen.Click += Preview;
                     break;
                 case "buttonLevel2":
                     buttonPreviewGen.Click += Level2ChoiceProblems;
+                    buttonPreviewGen.Click += Preview;
                     break;
                 case "buttonLevel3":
                     buttonPreviewGen.Click += Level3ChoiceProblems;
+                    buttonPreviewGen.Click += Preview;
+                    break;
+                case "buttonHandPick":
+                    buttonPreviewGen.Click += Preview;
+                    break;
+                case "buttonProblemSetPick":
+                    buttonPreviewGen.Click += ProblemSetKeyTextBoxChecker;
+                    buttonPreviewGen.Click += Preview;
                     break;
             }
         }
@@ -158,14 +195,18 @@ namespace Coursework5
             }
         }
 
-        #region fields
-        private int ButtonHtmlGenY { get; set; }
-        private int LabelPointY { get; set; }
-        #endregion
+
         #region Properties
         private bool AnswersOn { get; set; }
         private List<string> Problems;
         private List<string> Answers;
+        private int ButtonHtmlGenY { get; set; }
+        private int LabelPointY { get; set; }
+        private int ProblemSetSeed { get; set; }
+        private Size FormSize { get; set; }
+        readonly Random rng = new Random();
+        private List<Button> LevelButtons { get; set; }
+        private HtmlCustomWriter HTML { get; set; }
         ProblemChoiceParser Parser { get; set; }
         private bool Buttons { get; set; }
         private int AmountOfProblems { get; set; }
@@ -270,10 +311,6 @@ namespace Coursework5
         }
         #endregion
 
-        private string CreateProblemsText()
-        {
-            return AnswersOn ? HTML.ShowTasksAnswers() : HTML.ShowTasks();
-        }
 
         #region Hand pick problem number checeker
         private bool LastDigitIsLevel(int num) => num == 1 || num == 2 || num == 3;
@@ -303,15 +340,13 @@ namespace Coursework5
         #endregion
 
         #region answers on/off handling
-        private void AnswersOnOffView(object sender, EventArgs e) => buttonAnswersOnOff.Visible = !buttonAnswersOnOff.Visible;
+        //private void AnswersOnOffView(object sender, EventArgs e) => buttonAnswersOnOff.Visible = !buttonAnswersOnOff.Visible;
         private void AnswersOnOff(object sender, EventArgs e)
         {
             buttonAnswersOnOff.Text = AnswersOn ? "Ответы выкл." : "Ответы вкл.";
             AnswersOn = !AnswersOn;
         }
         #endregion
-
-
 
         #region Level choice
         private void Level1ChoiceProblems(object sender, EventArgs e) => GenerateTasksLevel1(100);
@@ -373,7 +408,7 @@ namespace Coursework5
         }
         #endregion 
 
-        #region Hand pick choice methods
+        #region Hand pick problem choice interaction
         /// <summary>
         /// Genrates interface for the problem hand picking menu
         /// </summary>
@@ -418,14 +453,19 @@ namespace Coursework5
         }
         #endregion
 
+        private string CreateProblemsText()
+        {
+            return AnswersOn ? HTML.ShowTasksAnswers(ProblemSetKey) : HTML.ShowTasks(ProblemSetKey);
+        }
         private void PickProblems(int n)
         {
             List<string> selectedProblems = new List<string>();
             List<string> correspondingAsnwers = new List<string>();
-
+            ProblemSetSeed = rng.Next(0, 100);
+            Random rng2 = new Random(92);
             for (int i = 0; i < n; i++)
             {
-                int pos = rng.Next(0, Problems.Count);
+                int pos = rng2.Next(0, Problems.Count);
                 selectedProblems.Add(Problems[pos]);
                 correspondingAsnwers.Add(Answers[pos]);
                 Problems.RemoveAt(pos);
@@ -437,10 +477,10 @@ namespace Coursework5
 
         private void HtmlLaunch() => System.Diagnostics.Process.Start(FilePath);
 
+        #region Hint display
         private void ShowHint(object sender, EventArgs e) => labelHintHandPick.Show();
-
         private void HideHint(object sender, EventArgs e) => labelHintHandPick.Hide();
-
+        #endregion
 
 
 
@@ -453,6 +493,7 @@ namespace Coursework5
             buttonAddProblem.Enabled = true;
             buttonPreviewGen.Enabled = true;
             buttonSaveFile.Enabled = false;
+            label1.Text = "Предпросмотр списка заданий";
 
             LabelPointY = labelListOfPbm.Location.Y + 17;
             FilePath = null;
@@ -466,7 +507,83 @@ namespace Coursework5
             buttonPreviewGen.Click -= Level1ChoiceProblems;
             buttonPreviewGen.Click -= Level2ChoiceProblems;
             buttonPreviewGen.Click -= Level3ChoiceProblems;
+            buttonPreviewGen.Click -= ProblemSetKeyTextBoxChecker;
+            buttonPreviewGen.Click -= Preview;
+
         }
+
+
+
+        #region Restore problem set by number
+        private string ProblemSetKey { get; set; }
+        private void ProblemSetType(object sender, EventArgs e)
+        {
+            int type = 0;
+            switch ((sender as Button).Name)
+            {
+                case "buttonLevel1":
+                    type = 1;
+                    break;
+                case "buttonLevel2":
+                    type = 2;
+                    break;
+                case "buttonLevel3":
+                    type = 3;
+                    break;
+                case "buttonMixedSet":
+                    type = 4;
+                    break;
+            }
+            ProblemSetKey = type.ToString();
+        }
+        private void ProblemSetKeyAssign(string amount) => ProblemSetKey = ProblemSetKey.Length == 1 ?
+            ProblemSetKey + ProblemSetSeed.ToString().PadLeft(2, '0') + amount :
+            ProblemSetKey[0] + ProblemSetSeed.ToString().PadLeft(2, '0') + amount;
+        private void ProblemSetKeyTextBoxChecker(object sender, EventArgs e)
+        {
+            string key = textBoxProblemSetPick.Text;
+            if (int.TryParse(key, out int k) && ProblemSetKeyChecker(key))
+            {
+                ProblemSetAssignProblems(key);
+                ProblemSetKey = key;
+                textBoxProblemSetPick.Text = "";
+                textBoxProblemSetPick.Focus();
+            }
+            else
+            {
+                textBoxProblemSetPick.Text = "";
+                textBoxProblemSetPick.Focus();
+            }
+        }
+        private bool ProblemSetKeyChecker(string key)
+        {
+            if (key.Length > 5)
+            {
+                MessageBox.Show("Длина ключа не соответвует формату набора");
+            }
+            if (key[0] > '4' || key[0] < '1')
+            {
+                MessageBox.Show("Первая цифра не соответсвует формату набора");
+                return false;
+            }
+            return true;
+        }
+
+        private void ProblemSetAssignProblems(string key)
+        {
+            Parser.ParseProblemSet(key);
+            Problems = Parser.ProblemsAnswers.Item1;
+            Answers = Parser.ProblemsAnswers.Item2;
+        }
+
+        private void SetPick(object sender, EventArgs e)
+        {
+            Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
+            ProblemSetPickControls.ForEach(x => x.Show());
+            this.Size = new Size(this.Width * 5 / 4, this.Height);
+            this.CenterToScreen();
+        }
+        #endregion
 
     }
 }

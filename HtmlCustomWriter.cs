@@ -56,11 +56,12 @@ namespace Coursework5
             " padding: 0 0.01em; " +
             "}" +
             " span.logPow > span {display: none;}";
+        private readonly string headerStyle = "H1 {text-align: center}";
         #endregion
 
-        private string Style() => "<style>" + boxStyle + fractionStyle + logPowStyle + "</style><body>";
+        private string Style() => "<style>" + boxStyle + fractionStyle + logPowStyle +headerStyle+ "</style><body>";
         private string StylePreview() => "<style>" + boxStylePreview + fractionStyle + logPowStyle + "</style><body>";
-
+        private string Header(string s) => $"<header><h1>{s}</h1></header>"; 
         private string Div(string s, string divClass) => $"<div class=\"{divClass}\">" + s + "</div>";
         private List<string> pbs;
         private List<string> answers;
@@ -121,10 +122,11 @@ namespace Coursework5
             return res;
         }
 
-        public string ShowTasks()
+        public string ShowTasks(string key)
         {
             string res = intro;
             res += Style();
+            res += Header("Блок задач номер " + key);
             string col1 = "";
             string col2 = "";
             string col3 = "";
@@ -149,10 +151,11 @@ namespace Coursework5
             res += outro;
             return res;
         }
-        public string ShowTasksAnswers()
+        public string ShowTasksAnswers(string key)
         {
             string res = intro;
             res += Style();
+            res += Header("Блок задач номер " + key);
             string col1 = "";
             string col2 = "";
             string col3 = "";

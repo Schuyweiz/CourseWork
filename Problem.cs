@@ -38,16 +38,8 @@ namespace Coursework5
         public string Lhs { get => lhs; set => lhs = value; }
         #endregion
 
-        public virtual string GenerateKey(int position)
-        {
-            //We need to have a 3 digit format for the position part of the problem key
-            string key = position >= 10 && position < 100 ?
-                "0" + position.ToString() :
-                position < 10 ?
-                "00" + position.ToString() :
-                position.ToString();
-            return key;
-        }
+        public virtual string GenerateKey(int position)=> position.ToString().PadLeft(3, '0');
+
         public virtual int Square(int val) => val * val;
         public virtual string Log(int logBase, string logVal) => $"log<sub vertical-align:-10px;>{logBase}</sub> ({logVal})";
         public virtual string Log(string logBase, int logVal) => $"log<sub vertical-align:-10px;>{logBase}</sub> ({logVal})";

@@ -46,6 +46,8 @@
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.buttonSaveFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonProblemSetPick = new System.Windows.Forms.Button();
+            this.textBoxProblemSetPick = new System.Windows.Forms.TextBox();
             this.roundButtonInfo = new Coursework5.RoundButton();
             this.SuspendLayout();
             // 
@@ -211,6 +213,22 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Предпросмотр списка задач";
             // 
+            // buttonProblemSetPick
+            // 
+            this.buttonProblemSetPick.Location = new System.Drawing.Point(175, 300);
+            this.buttonProblemSetPick.Name = "buttonProblemSetPick";
+            this.buttonProblemSetPick.Size = new System.Drawing.Size(88, 81);
+            this.buttonProblemSetPick.TabIndex = 18;
+            this.buttonProblemSetPick.Text = "Выбрать номер блока";
+            this.buttonProblemSetPick.UseVisualStyleBackColor = true;
+            // 
+            // textBoxProblemSetPick
+            // 
+            this.textBoxProblemSetPick.Location = new System.Drawing.Point(14, 33);
+            this.textBoxProblemSetPick.Name = "textBoxProblemSetPick";
+            this.textBoxProblemSetPick.Size = new System.Drawing.Size(100, 22);
+            this.textBoxProblemSetPick.TabIndex = 19;
+            // 
             // roundButtonInfo
             // 
             this.roundButtonInfo.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -230,6 +248,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(782, 453);
+            this.Controls.Add(this.textBoxProblemSetPick);
+            this.Controls.Add(this.buttonProblemSetPick);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSaveFile);
             this.Controls.Add(this.webBrowserPreview);
@@ -280,6 +300,8 @@
         private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.Button buttonSaveFile;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonProblemSetPick;
+        private System.Windows.Forms.TextBox textBoxProblemSetPick;
     }
 }
 
