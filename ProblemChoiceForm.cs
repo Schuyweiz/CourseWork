@@ -54,7 +54,7 @@ namespace Coursework5
             roundButtonInfo.MouseLeave += HideHint;
 
             //initial form size
-            FormSize = this.Size;
+            FormSizeProblems = this.Size;
             webBrowserPreview.Width += this.Width / 4;
 
             //Initializing controls lists for easier operations
@@ -64,14 +64,20 @@ namespace Coursework5
             InitializeProblemSetPickControls();
 
             //
-            //buttonProblemSetLoad.Click += ProblemSetKeyTextBoxChecker;
-            //buttonProblemSetLoad.Click += Preview;
+            this.Size = new Size(230, 220);
+            FormSizeMainMenu = this.Size;
+            var tempButtons = new List<Button>() { buttonHandPick, buttonMixedProblems, buttonProblemSetPick };
+            for (int i = 0; i < LevelButtons.Count; i++)
+            {
+                LevelButtons[i].Location = new Point(0, i * 60);
+                tempButtons[i].Location = new Point(110, i * 60);
+            }
+            this.CenterToScreen();
+
 
             Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
             MainMenuControls.ForEach(x => x.Show());
         }
-
-
 
         #region Controls lists
         private List<Control> MainMenuControls;
@@ -86,6 +92,7 @@ namespace Coursework5
             res.Add(buttonLevel3);
             res.Add(buttonHandPick);
             res.Add(buttonProblemSetPick);
+            res.Add(buttonMixedProblems);
             MainMenuControls = res;
         }
         private void InitializeLevelControls()
@@ -133,6 +140,7 @@ namespace Coursework5
         }
         #endregion
 
+        #region generating problems and preview
         private void Preview(object sender, EventArgs e)
         {
             string amount = null;
@@ -153,7 +161,6 @@ namespace Coursework5
 
             buttonSaveFile.Enabled = true;
         }
-
         private void AssignGenerateProblemsPreview(object sender, EventArgs e)
         {
             switch ((sender as Button).Name)
@@ -194,7 +201,28 @@ namespace Coursework5
                     break;
             }
         }
-
+        private void PickProblems(int n)
+        {
+            List<string> selectedProblems = new List<string>();
+            List<string> correspondingAsnwers = new List<string>();
+            ProblemSetSeed = rng.Next(0, 100);
+            Random rng2 = new Random(ProblemSetSeed);
+            for (int i = 0; i < n; i++)
+            {
+                int pos = rng2.Next(0, Problems.Count);
+                selectedProblems.Add(Problems[pos]);
+                correspondingAsnwers.Add(Answers[pos]);
+                Problems.RemoveAt(pos);
+                Answers.RemoveAt(pos);
+            }
+            Problems = selectedProblems;
+            Answers = correspondingAsnwers;
+        }
+        private string CreateProblemsText()
+        {
+            return AnswersOn ? HTML.ShowTasksAnswers(ProblemSetKey) : HTML.ShowTasks(ProblemSetKey);
+        }
+        #endregion
 
         #region Properties
         private bool AnswersOn { get; set; }
@@ -203,7 +231,8 @@ namespace Coursework5
         private int ButtonHtmlGenY { get; set; }
         private int LabelPointY { get; set; }
         private int ProblemSetSeed { get; set; }
-        private Size FormSize { get; set; }
+        private Size FormSizeProblems { get; set; }
+        private Size FormSizeMainMenu { get; set; }
         readonly Random rng = new Random();
         private List<Button> LevelButtons { get; set; }
         private HtmlCustomWriter HTML { get; set; }
@@ -212,8 +241,6 @@ namespace Coursework5
         private int AmountOfProblems { get; set; }
         private string FilePath { get; set; }
         #endregion
-
-        private void OnExitButtonClick(object sender, EventArgs e) => MainMenu();
 
         #region Save file features
         private void ButtonSaveFileClick(object sender, EventArgs e)
@@ -311,7 +338,6 @@ namespace Coursework5
         }
         #endregion
 
-
         #region Hand pick problem number checeker
         private bool LastDigitIsLevel(int num) => num == 1 || num == 2 || num == 3;
         private bool ProblemNumberChecker(string input) => input.Length != 4 ?
@@ -356,7 +382,7 @@ namespace Coursework5
         {
             Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
             LevelControls.ForEach(x => x.Show());
-            this.Size = new Size(this.Width * 5 / 4, this.Height);
+            this.Size = FormSizeProblems;
             this.CenterToScreen();
             textBoxAmtOfPb.Focus();
         }
@@ -419,7 +445,7 @@ namespace Coursework5
             buttonPreviewGen.Enabled = false;
             Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
             HandPickControls.ForEach(x => x.Show());
-            this.Size = new Size(this.Width * 5 / 4, this.Height);
+            this.Size =FormSizeProblems;
             this.CenterToScreen();
             textBoxProblemNum.Focus();
         }
@@ -453,36 +479,14 @@ namespace Coursework5
         }
         #endregion
 
-        private string CreateProblemsText()
-        {
-            return AnswersOn ? HTML.ShowTasksAnswers(ProblemSetKey) : HTML.ShowTasks(ProblemSetKey);
-        }
-        private void PickProblems(int n)
-        {
-            List<string> selectedProblems = new List<string>();
-            List<string> correspondingAsnwers = new List<string>();
-            ProblemSetSeed = rng.Next(0, 100);
-            Random rng2 = new Random(92);
-            for (int i = 0; i < n; i++)
-            {
-                int pos = rng2.Next(0, Problems.Count);
-                selectedProblems.Add(Problems[pos]);
-                correspondingAsnwers.Add(Answers[pos]);
-                Problems.RemoveAt(pos);
-                Answers.RemoveAt(pos);
-            }
-            Problems = selectedProblems;
-            Answers = correspondingAsnwers;
-        }
-
-        private void HtmlLaunch() => System.Diagnostics.Process.Start(FilePath);
-
         #region Hint display
         private void ShowHint(object sender, EventArgs e) => labelHintHandPick.Show();
         private void HideHint(object sender, EventArgs e) => labelHintHandPick.Hide();
         #endregion
 
 
+        private void OnExitButtonClick(object sender, EventArgs e) => MainMenu();
+        private void HtmlLaunch() => System.Diagnostics.Process.Start(FilePath);
 
         private void MainMenu()
         {
@@ -497,7 +501,7 @@ namespace Coursework5
 
             LabelPointY = labelListOfPbm.Location.Y + 17;
             FilePath = null;
-            this.Size = FormSize;
+            this.Size = FormSizeMainMenu;
             webBrowserPreview.DocumentText = "";
             this.CenterToScreen();
             ResetPreviewButton();
@@ -511,8 +515,6 @@ namespace Coursework5
             buttonPreviewGen.Click -= Preview;
 
         }
-
-
 
         #region Restore problem set by number
         private string ProblemSetKey { get; set; }
@@ -580,7 +582,7 @@ namespace Coursework5
         {
             Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
             ProblemSetPickControls.ForEach(x => x.Show());
-            this.Size = new Size(this.Width * 5 / 4, this.Height);
+            this.Size = FormSizeProblems;
             this.CenterToScreen();
         }
         #endregion
