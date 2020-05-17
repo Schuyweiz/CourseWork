@@ -7,7 +7,7 @@ namespace Coursework5
         #region fields
         private readonly string intro = "<!DOCTYPE html><html><head> <meta charset=\"UTF-16\">";
         private readonly string outro = "</body></html>";
-        private readonly string boxStyle = 
+        private readonly string boxStyle =
             "* {box-sizing:border-box;" +
             "}" +
             ".column { float: left;" +
@@ -18,14 +18,25 @@ namespace Coursework5
             "clear: both;" +
             " display: table;" +
             "}";
-     
-        private readonly string fractionStyle = 
+        private readonly string boxStylePreview =
+            "* {box-sizing:border-box;" +
+            "}" +
+            ".column { float: left;" +
+            " width: 50%;" +
+            " padding: 0px;" +
+            "}" +
+            ".row:: after{content: \"\";" +
+            "clear: both;" +
+            " display: table;" +
+            "}";
+
+        private readonly string fractionStyle =
             "span.frac { display: inline-block;" +
             " vertical-align: -10px;" +
             " text-align: center;" +
             " font-size: 10px;" +
             " font-weight: 700" +
-            "}" + 
+            "}" +
             " span.frac > sup, span.frac > sub {display: block;" +
             " font: inherit;" +
             " padding: 0 0.01em; " +
@@ -46,15 +57,67 @@ namespace Coursework5
             " span.logPow > span {display: none;}";
         #endregion
 
-        private string Style() => "<style>" + boxStyle +fractionStyle+logPowStyle+ "</style><body>";
+        private string Style() => "<style>" + boxStyle + fractionStyle + logPowStyle + "</style><body>";
+        private string StylePreview() => "<style>" + boxStylePreview + fractionStyle + logPowStyle + "</style><body>";
+
         private string Div(string s, string divClass) => $"<div class=\"{divClass}\">" + s + "</div>";
         private List<string> pbs;
         private List<string> answers;
-        
+
         public HtmlCustomWriter(List<string> pbs, List<string> answers)
         {
             this.pbs = pbs;
             this.answers = answers;
+        }
+
+        public string PreviewTasks()
+        {
+            string res = intro;
+            res += StylePreview();
+            string col1 = "";
+            string col2 = "";
+            for (int i = 0; i < pbs.Count; i++)
+            {
+                string problem = pbs[i];
+                switch (i % 2)
+                {
+                    case 0:
+                        col1 += problem + "<p>Ответ:</p><br>";
+                        break;
+                    case 1:
+                        col2 += problem + "<p>Ответ:</p><br>";
+                        break;
+                }
+            }
+            res += Div(Div(col1, "column") + Div(col2, "column"), "row");
+
+            res += outro;
+            return res;
+        }
+        public string PreviewTasksAnswers()
+        {
+            string res = intro;
+            res += StylePreview();
+            string col1 = "";
+            string col2 = "";
+            for (int i = 0; i < pbs.Count; i++)
+            {
+                string problem = pbs[i];
+                string answer = answers[i];
+                switch (i % 2)
+                {
+                    case 0:
+                        col1 += problem + $"<p>Ответ: {answer}</p><br>";
+                        break;
+                    case 1:
+                        col2 += problem + $"<p>Ответ: {answer}</p><br>";
+                        break;
+                }
+            }
+            res += Div(Div(col1, "column") + Div(col2, "column"), "row");
+
+            res += outro;
+            return res;
         }
 
         public string ShowTasks()

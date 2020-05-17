@@ -15,26 +15,31 @@ namespace Coursework5
             this.CenterToScreen();
             this.Text = "Генератор задач";
             #region initialising events for buttons
-            buttonHtmlGen.Click += HtmlGenButtonClick;
+            //generate
+            buttonSaveFile.Click += ButtonSaveFileClick;
+            buttonPreviewGen.Click += Preview;
+            
 
 
-            buttonLevel1.Click += Level1Choice;
-            buttonLevel1.Click += LevelButtonsSwitch;
+            buttonLevel1.Click += Level1ChoiceProblems;
             buttonLevel1.Click += LevelPick;
             buttonLevel1.Click += AnswersOnOffView;
-            buttonLevel2.Click += Level2Choice;
-            buttonLevel2.Click += LevelButtonsSwitch;
+            buttonLevel1.Click += AssignGenerateProblemsEvent;
+
+            buttonLevel2.Click += Level2ChoiceProblems;
             buttonLevel2.Click += LevelPick;
             buttonLevel2.Click += AnswersOnOffView;
-            buttonLevel3.Click += Level3Choice;
-            buttonLevel3.Click += LevelButtonsSwitch;
+            buttonLevel2.Click += AssignGenerateProblemsEvent;
+
+            buttonLevel3.Click += Level3ChoiceProblems;
             buttonLevel3.Click += LevelPick;
             buttonLevel3.Click += AnswersOnOffView;
-            buttonHandPick.Click += LevelButtonsSwitch;
+            buttonLevel3.Click += AssignGenerateProblemsEvent;
+
             buttonHandPick.Click += HandPick;
             buttonHandPick.Click += AnswersOnOffView;
+
             buttonAddProblem.Click += ProblemNumberCheck;
-            buttonAddProblem.Click += ProblemAmtChecker;
 
             buttonAnswersOnOff.Click += AnswersOnOff;
 
@@ -44,32 +49,125 @@ namespace Coursework5
             Parser = new ProblemChoiceParser();
             Problems = new List<string>();
             Answers = new List<string>();
-            LevelSelectionButtons(Buttons = true);
-            ButtonHtmlGenY = buttonHtmlGen.Location.Y;
+            ButtonHtmlGenY = buttonPreviewGen.Location.Y;
             AnswersOn = true;
             AmountOfProblems = 0;
+            LabelPointY = labelAmountOfProblems.Location.Y + 17;
 
             //info button handling
             roundButtonInfo.MouseHover += ShowHint;
             roundButtonInfo.MouseLeave += HideHint;
+
+            //initial form size
+            FormSize = this.Size;
+            webBrowserPreview.Width += this.Width / 4;
+
+            //Initializing controls lists for easier operations
+            InitializeMainMenuControls();
+            InitializeHandPickControls();
+            InitializeLevelControls();
+
+            Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
+            MainMenuControls.ForEach(x => x.Show());
+
+            
+
         }
+
+        private Size FormSize { get; set; }
         readonly Random rng = new Random();
+
+        private HtmlCustomWriter HTML { get; set; }
+
+        #region Controls lists
+        private List<Control> MainMenuControls;
+        private List<Control> LevelControls;
+        private List<Control> HandPickControls;
+        private void InitializeMainMenuControls()
+        {
+            var res = new List<Control>();
+            res.Add(buttonLevel1);
+            res.Add(buttonLevel2);
+            res.Add(buttonLevel3);
+            res.Add(buttonHandPick);
+            MainMenuControls = res;
+        }
+        private void InitializeLevelControls()
+        {
+            var res = new List<Control>();
+            res.Add(buttonAnswersOnOff);
+            res.Add(buttonExit);
+            res.Add(buttonSaveFile);
+            res.Add(buttonPreviewGen);
+            res.Add(textBoxAmtOfPb);
+            res.Add(webBrowserPreview);
+            res.Add(labelAmountOfProblems);
+            LevelControls = res;
+        }
+        private void InitializeHandPickControls()
+        {
+            var res = new List<Control>();
+            res.Add(textBoxProblemNum);
+            res.Add(labelListOfPbm);
+            res.Add(labelProblemNumber);
+            res.Add(buttonExit);
+            res.Add(buttonAnswersOnOff);
+            res.Add(webBrowserPreview);
+            res.Add(buttonSaveFile);
+            res.Add(roundButtonInfo);
+            res.Add(label1);
+            res.Add(buttonAddProblem);
+            res.Add(buttonPreviewGen);
+            HandPickControls = res;
+        }
+        #endregion
+
+        private void Preview(object sender, EventArgs e)
+        {
+            if (labelProblemNumber.Visible)
+                HTML = new HtmlCustomWriter(Problems, Answers);
+            else
+            {
+                PickProblems(int.Parse(textBoxAmtOfPb.Text));
+                HTML = new HtmlCustomWriter(Problems, Answers);
+            }
+            string htmlContent = AnswersOn ? HTML.PreviewTasksAnswers() : HTML.PreviewTasks();
+            webBrowserPreview.DocumentText = htmlContent;
+
+            buttonSaveFile.Enabled = true;
+        }
+
+        private void AssignGenerateProblemsEvent(object sender, EventArgs e)
+        {
+            switch((sender as Button).Name)
+            {
+                case "buttonLevel1":
+                    buttonPreviewGen.Click += Level1ChoiceProblems;
+                    break;
+                case "buttonLevel2":
+                    buttonPreviewGen.Click += Level2ChoiceProblems;
+                    break;
+                case "buttonLevel3":
+                    buttonPreviewGen.Click += Level3ChoiceProblems;
+                    break;
+            }
+        }
+
         #region fields
         private int ButtonHtmlGenY { get; set; }
-        private int labelPointY = 20;
+        private int LabelPointY { get; set; }
         #endregion
         #region Properties
         private bool AnswersOn { get; set; }
         private List<string> Problems;
         private List<string> Answers;
         ProblemChoiceParser Parser { get; set; }
-        private int LabelPointY { get => labelPointY; set => labelPointY = value; }
         private bool Buttons { get; set; }
         private int AmountOfProblems { get; set; }
         private string FilePath { get; set; }
         #endregion
 
-        private void HtmlGenButtonClick(object sender, EventArgs e)
+        private void ButtonSaveFileClick(object sender, EventArgs e)
         {
             if (labelListOfPbm.Visible == false)
             {
@@ -79,36 +177,30 @@ namespace Coursework5
                 else
                 {
                     SaveLoadInteraction(sender, e);
-                    LevelButtonsSwitch(sender, e);
                 }
             }
             else
             {
-                SaveLoadInteraction(sender,e);
-                LevelButtonsSwitch(sender, e);
+                SaveLoadInteraction(sender, e);
                 MainMenu();
             }
         }
-        private void OnExitButtonClick(object sender, EventArgs e)
-        {
-            LevelButtonsSwitch(sender, e);
-            MainMenu();
-        }
+        private void OnExitButtonClick(object sender, EventArgs e) => MainMenu();
+
         private void SaveLoadInteraction(object sender, EventArgs e)
         {
             using (SaveFile form = new SaveFile())
             {
-                form.Location = buttonHtmlGen.Location;
                 var result = form.ShowDialog();
 
                 if (result == DialogResult.OK)
                 {
                     string problems = CreateProblemsText();
-                    bool val = form.SaveOrLoad;          
+                    bool val = form.SaveOrLoad;
                     if (val)
                     {
                         SaveFile(problems);
-                        if(FilePath!=null)
+                        if (FilePath != null)
                             HtmlLaunch();
                         MainMenu();
                     }
@@ -149,8 +241,8 @@ namespace Coursework5
             {
                 MessageBox.Show(
                     "Error occured while writing down a file...",
-                    "", 
-                    MessageBoxButtons.OK, 
+                    "",
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
             catch (UnauthorizedAccessException)
@@ -172,27 +264,18 @@ namespace Coursework5
         }
         private string CreateProblemsText()
         {
-            HtmlCustomWriter html;
-            if (labelProblemNumber.Visible)
-                html = new HtmlCustomWriter(Problems, Answers);
-
-            else
-            {
-                PickProblems(int.Parse(textBoxAmtOfPb.Text));
-                html = new HtmlCustomWriter(Problems, Answers);
-            }
-            return AnswersOn ? html.ShowTasksAnswers() : html.ShowTasks();
+            return AnswersOn ? HTML.ShowTasksAnswers() : HTML.ShowTasks();
         }
-        
+
         private bool LastDigitIsLevel(int num) => num == 1 || num == 2 || num == 3;
-        private bool ProblemNumberChecker(string input) => input.Length !=4 ?
+        private bool ProblemNumberChecker(string input) => input.Length != 4 ?
             false :
             !LastDigitIsLevel(int.Parse(input[3].ToString())) ?
             false :
             true;
         private void ProblemNumberCheck(object sender, EventArgs e)
         {
-            string input = textBoxAmtOfPb.Text;
+            string input = textBoxProblemNum.Text;
             if (!int.TryParse((input), out int output))
                 MessageBox.Show("Введите четырёхзначный номер задачи");
             else if (!ProblemNumberChecker(input))
@@ -208,37 +291,9 @@ namespace Coursework5
             if (AmountOfProblems < 1 || AmountOfProblems > 10)
                 buttonAddProblem.Enabled = false;
         }
-        private void LevelButtonsSwitch(object sender, EventArgs e)
-        {
-            Buttons = !Buttons;
-            LevelSelectionButtons(Buttons);
-        }
-        private void LevelSelectionButtons(bool on)
-        {
-            if (on)
-            {
-                buttonLevel1.Show();
-                buttonLevel2.Show();
-                buttonLevel3.Show();
-                buttonHandPick.Show();
-                buttonAddProblem.Hide();
-                buttonHtmlGen.Hide();
-                buttonAnswersOnOff.Hide();
-                buttonExit.Hide();
-                roundButtonInfo.Hide();
-                foreach (var lbl in Controls.OfType<Label>())
-                    lbl.Hide();
-                foreach (var lbl in Controls.OfType<TextBox>())
-                    lbl.Hide();
-            }
-            else
-            {
-                foreach (var lbl in Controls.OfType<Button>())
-                    lbl.Hide();
-            }
-        }
 
-        #region answers handling
+
+        #region answers on/off handling
         private void AnswersOnOffView(object sender, EventArgs e) => buttonAnswersOnOff.Visible = !buttonAnswersOnOff.Visible;
         private void AnswersOnOff(object sender, EventArgs e)
         {
@@ -250,15 +305,16 @@ namespace Coursework5
 
 
         #region Level choice
-        private void Level1Choice(object sender, EventArgs e) => GenerateTasksLevel1(100);
-        private void Level2Choice(object sender, EventArgs e) => GenerateTasksLevel2(100);
-        private void Level3Choice(object sender, EventArgs e) => GenerateTasksLevel3(100);
+        private void Level1ChoiceProblems(object sender, EventArgs e) => GenerateTasksLevel1(100);
+        private void Level2ChoiceProblems(object sender, EventArgs e) => GenerateTasksLevel2(100);
+        private void Level3ChoiceProblems(object sender, EventArgs e) => GenerateTasksLevel3(100);
         private void LevelPick(object sender, EventArgs e)
         {
-            buttonHtmlGen.Show();
-            textBoxAmtOfPb.Show();
-            buttonExit.Show();
-            labelAmountOfProblems.Show();
+            Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
+            LevelControls.ForEach(x => x.Show());
+            this.Size = new Size(this.Width * 5 / 4, this.Height);
+            this.CenterToScreen();
+            textBoxAmtOfPb.Focus();
         }
         #endregion
 
@@ -316,21 +372,19 @@ namespace Coursework5
         /// <param name="e"></param>
         private void HandPick(object sender, EventArgs e)
         {
-            buttonHtmlGen.Enabled = false;
-            buttonHtmlGen.Show();
-            buttonAddProblem.Show();
-            textBoxAmtOfPb.Show();
-            labelProblemNumber.Show();
-            labelListOfPbm.Show();
-            buttonExit.Show();
-            roundButtonInfo.Show();
-            Point p = buttonHtmlGen.Location;
-            buttonHtmlGen.Location = new Point(p.X, p.Y + 50);
+            buttonPreviewGen.Enabled = false;
+            Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
+            HandPickControls.ForEach(x => x.Show());
+            this.Size = new Size(this.Width * 5 / 4, this.Height);
+            this.CenterToScreen();
+            textBoxProblemNum.Focus();
+            buttonPreviewGen.Text = "Предпросмотр";
+            buttonPreviewGen.AutoSize = true;
         }
         private string ProblemNumberInput()
         {
-            string res = textBoxAmtOfPb.Text;
-            textBoxAmtOfPb.Text = "";
+            string res = textBoxProblemNum.Text;
+            textBoxProblemNum.Text = "";
             return res;
         }
         private void NewProblemLabel(string num)
@@ -338,11 +392,12 @@ namespace Coursework5
             Label problemNumber = new Label
             {
                 Location = new Point(labelListOfPbm.Location.X,
-                labelListOfPbm.Location.Y+LabelPointY),
-                Text = num
+                labelListOfPbm.Location.Y + LabelPointY),
+                Text = num,
+                BackColor = Color.White
             };
             Controls.Add(problemNumber);
-            LabelPointY += 25;
+            LabelPointY += 20;
         }
         private void AddNewProblem(object sender, EventArgs e)
         {
@@ -352,7 +407,7 @@ namespace Coursework5
             Problems.Add(pb.HtmlFormula);
             Answers.Add(pb.DisplayAnswers());
             NewProblemLabel(problemNum);
-            buttonHtmlGen.Enabled = true;
+            buttonPreviewGen.Enabled = true;
         }
         #endregion
 
@@ -373,26 +428,38 @@ namespace Coursework5
             Answers = correspondingAsnwers;
         }
 
-        private void HtmlLaunch()=> System.Diagnostics.Process.Start(FilePath);
+        private void HtmlLaunch() => System.Diagnostics.Process.Start(FilePath);
 
-        private void ShowHint(object sender, EventArgs e)=> labelHintHandPick.Visible = true;
+        private void ShowHint(object sender, EventArgs e) => labelHintHandPick.Show();
 
-        private void HideHint(object sender, EventArgs e)=> labelHintHandPick.Visible = false;
+        private void HideHint(object sender, EventArgs e) => labelHintHandPick.Hide();
 
 
 
 
         private void MainMenu()
         {
+            Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
+            MainMenuControls.ForEach(x => x.Show());
             Problems = new List<string>();
             Answers = new List<string>();
             buttonAddProblem.Enabled = true;
-            buttonHtmlGen.Enabled = true;
-            labelHintHandPick.Hide();
-            LabelPointY = 20;
-            Point p = buttonHtmlGen.Location;
-            buttonHtmlGen.Location = new Point(p.X, ButtonHtmlGenY);
+            buttonPreviewGen.Enabled = true;
+            buttonSaveFile.Enabled = false;
+            
+            LabelPointY = labelListOfPbm.Location.Y+17;
             FilePath = null;
+            this.Size = FormSize;
+            webBrowserPreview.DocumentText = "";
+            this.CenterToScreen();
+            ResetPreviewButton();
         }
+        private void ResetPreviewButton()
+        {
+            buttonPreviewGen.Click -= Level1ChoiceProblems;
+            buttonPreviewGen.Click -= Level2ChoiceProblems;
+            buttonPreviewGen.Click -= Level3ChoiceProblems;
+        }
+
     }
 }

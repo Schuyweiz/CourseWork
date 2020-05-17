@@ -78,7 +78,7 @@ namespace Coursework5
             res += $"({logExpression})";
             return res;
         }
-        public virtual string MakeFont(string expression) => $"<p><font face=\"Script\">" + expression + "</p>";
+        public virtual string MakeFont(string expression) => $"<p><font face=\"Bookman\">" + expression + "</p>";
         public virtual string DisplayKey() => $"<small>№ {Key}</small>&ensp;&ensp;";
         public abstract string GenerateProblem(int count);
 
