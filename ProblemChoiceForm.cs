@@ -14,27 +14,19 @@ namespace Coursework5
             InitializeComponent();
             this.CenterToScreen();
             this.Text = "Генератор задач";
+            LevelButtons = new List<Button>() { buttonLevel1, buttonLevel2, buttonLevel3 };
             #region initialising events for buttons
             //generate
             buttonSaveFile.Click += ButtonSaveFileClick;
             buttonPreviewGen.Click += Preview;
-            
 
-
-            buttonLevel1.Click += Level1ChoiceProblems;
-            buttonLevel1.Click += LevelPick;
-            buttonLevel1.Click += AnswersOnOffView;
-            buttonLevel1.Click += AssignGenerateProblemsEvent;
-
-            buttonLevel2.Click += Level2ChoiceProblems;
-            buttonLevel2.Click += LevelPick;
-            buttonLevel2.Click += AnswersOnOffView;
-            buttonLevel2.Click += AssignGenerateProblemsEvent;
-
-            buttonLevel3.Click += Level3ChoiceProblems;
-            buttonLevel3.Click += LevelPick;
-            buttonLevel3.Click += AnswersOnOffView;
-            buttonLevel3.Click += AssignGenerateProblemsEvent;
+            foreach (Button button in LevelButtons)
+            {
+                AssignGenerateProblems(button);
+                button.Click += LevelPick;
+                button.Click += AnswersOnOffView;
+                button.Click += AssignGenerateProblemsPreview;
+            }
 
             buttonHandPick.Click += HandPick;
             buttonHandPick.Click += AnswersOnOffView;
@@ -69,14 +61,11 @@ namespace Coursework5
 
             Controls.Cast<Control>().ToList().ForEach(x => x.Hide());
             MainMenuControls.ForEach(x => x.Show());
-
-            
-
         }
 
         private Size FormSize { get; set; }
         readonly Random rng = new Random();
-
+        private List<Button> LevelButtons { get; set; }
         private HtmlCustomWriter HTML { get; set; }
 
         #region Controls lists
@@ -102,6 +91,7 @@ namespace Coursework5
             res.Add(textBoxAmtOfPb);
             res.Add(webBrowserPreview);
             res.Add(labelAmountOfProblems);
+            res.Add(label1);
             LevelControls = res;
         }
         private void InitializeHandPickControls()
@@ -137,9 +127,9 @@ namespace Coursework5
             buttonSaveFile.Enabled = true;
         }
 
-        private void AssignGenerateProblemsEvent(object sender, EventArgs e)
+        private void AssignGenerateProblemsPreview(object sender, EventArgs e)
         {
-            switch((sender as Button).Name)
+            switch ((sender as Button).Name)
             {
                 case "buttonLevel1":
                     buttonPreviewGen.Click += Level1ChoiceProblems;
@@ -149,6 +139,21 @@ namespace Coursework5
                     break;
                 case "buttonLevel3":
                     buttonPreviewGen.Click += Level3ChoiceProblems;
+                    break;
+            }
+        }
+        private void AssignGenerateProblems(Button b)
+        {
+            switch (b.Name)
+            {
+                case "buttonLevel1":
+                    b.Click += Level1ChoiceProblems;
+                    break;
+                case "buttonLevel2":
+                    b.Click += Level2ChoiceProblems;
+                    break;
+                case "buttonLevel3":
+                    b.Click += Level3ChoiceProblems;
                     break;
             }
         }
@@ -167,6 +172,9 @@ namespace Coursework5
         private string FilePath { get; set; }
         #endregion
 
+        private void OnExitButtonClick(object sender, EventArgs e) => MainMenu();
+
+        #region Save file features
         private void ButtonSaveFileClick(object sender, EventArgs e)
         {
             if (labelListOfPbm.Visible == false)
@@ -185,8 +193,6 @@ namespace Coursework5
                 MainMenu();
             }
         }
-        private void OnExitButtonClick(object sender, EventArgs e) => MainMenu();
-
         private void SaveLoadInteraction(object sender, EventArgs e)
         {
             using (SaveFile form = new SaveFile())
@@ -262,11 +268,14 @@ namespace Coursework5
                     MessageBoxIcon.Error);
             }
         }
+        #endregion
+
         private string CreateProblemsText()
         {
             return AnswersOn ? HTML.ShowTasksAnswers() : HTML.ShowTasks();
         }
 
+        #region Hand pick problem number checeker
         private bool LastDigitIsLevel(int num) => num == 1 || num == 2 || num == 3;
         private bool ProblemNumberChecker(string input) => input.Length != 4 ?
             false :
@@ -291,7 +300,7 @@ namespace Coursework5
             if (AmountOfProblems < 1 || AmountOfProblems > 10)
                 buttonAddProblem.Enabled = false;
         }
-
+        #endregion
 
         #region answers on/off handling
         private void AnswersOnOffView(object sender, EventArgs e) => buttonAnswersOnOff.Visible = !buttonAnswersOnOff.Visible;
@@ -378,8 +387,6 @@ namespace Coursework5
             this.Size = new Size(this.Width * 5 / 4, this.Height);
             this.CenterToScreen();
             textBoxProblemNum.Focus();
-            buttonPreviewGen.Text = "Предпросмотр";
-            buttonPreviewGen.AutoSize = true;
         }
         private string ProblemNumberInput()
         {
@@ -446,8 +453,8 @@ namespace Coursework5
             buttonAddProblem.Enabled = true;
             buttonPreviewGen.Enabled = true;
             buttonSaveFile.Enabled = false;
-            
-            LabelPointY = labelListOfPbm.Location.Y+17;
+
+            LabelPointY = labelListOfPbm.Location.Y + 17;
             FilePath = null;
             this.Size = FormSize;
             webBrowserPreview.DocumentText = "";

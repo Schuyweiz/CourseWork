@@ -41,7 +41,7 @@ namespace Coursework5
         public virtual string GenerateKey(int position)
         {
             //We need to have a 3 digit format for the position part of the problem key
-            string key = position > 10 && position < 100 ?
+            string key = position >= 10 && position < 100 ?
                 "0" + position.ToString() :
                 position < 10 ?
                 "00" + position.ToString() :

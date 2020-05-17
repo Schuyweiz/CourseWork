@@ -7,6 +7,7 @@ namespace Coursework5
         #region fields
         private readonly string intro = "<!DOCTYPE html><html><head> <meta charset=\"UTF-16\">";
         private readonly string outro = "</body></html>";
+        
         private readonly string boxStyle =
             "* {box-sizing:border-box;" +
             "}" +
