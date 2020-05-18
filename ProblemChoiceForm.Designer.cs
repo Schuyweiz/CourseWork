@@ -45,10 +45,14 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.buttonSaveFile = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelSetKeyPreviewl = new System.Windows.Forms.Label();
             this.buttonProblemSetPick = new System.Windows.Forms.Button();
             this.textBoxProblemSetPick = new System.Windows.Forms.TextBox();
             this.buttonMixedProblems = new System.Windows.Forms.Button();
+            this.labelHintPreview = new System.Windows.Forms.Label();
+            this.labelHintSaveFile = new System.Windows.Forms.Label();
+            this.labelHintAddProblem = new System.Windows.Forms.Label();
+            this.labelSetPick = new System.Windows.Forms.Label();
             this.roundButtonInfo = new Coursework5.RoundButton();
             this.SuspendLayout();
             // 
@@ -165,18 +169,18 @@
             this.labelHintHandPick.AutoSize = true;
             this.labelHintHandPick.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelHintHandPick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelHintHandPick.Location = new System.Drawing.Point(120, 61);
+            this.labelHintHandPick.Location = new System.Drawing.Point(120, 114);
             this.labelHintHandPick.Name = "labelHintHandPick";
-            this.labelHintHandPick.Size = new System.Drawing.Size(204, 155);
+            this.labelHintHandPick.Size = new System.Drawing.Size(204, 104);
             this.labelHintHandPick.TabIndex = 12;
-            this.labelHintHandPick.Text = "Подсказка:\r\n\r\nНомера задач имеют \r\nчетырёхзначный номер\r\nи оканчиваются на 1,2 ил" +
-    "и 3.\r\nВ список можно добавить\r\nдо 10 задач.\r\n\r\nПример: 0112";
+            this.labelHintHandPick.Text = "Ключи задач имеют \r\nчетырёхзначный номер\r\nи оканчиваются на 1,2 или 3.\r\nВ список " +
+    "можно добавить\r\nдо 10 задач.\r\nПример: 0112";
             this.labelHintHandPick.Visible = false;
             // 
             // buttonExit
             // 
             this.buttonExit.Image = ((System.Drawing.Image)(resources.GetObject("buttonExit.Image")));
-            this.buttonExit.Location = new System.Drawing.Point(15, 370);
+            this.buttonExit.Location = new System.Drawing.Point(15, 387);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(99, 54);
             this.buttonExit.TabIndex = 13;
@@ -187,10 +191,10 @@
             // 
             // webBrowserPreview
             // 
-            this.webBrowserPreview.Location = new System.Drawing.Point(330, 29);
+            this.webBrowserPreview.Location = new System.Drawing.Point(350, 29);
             this.webBrowserPreview.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserPreview.Name = "webBrowserPreview";
-            this.webBrowserPreview.Size = new System.Drawing.Size(762, 407);
+            this.webBrowserPreview.Size = new System.Drawing.Size(742, 407);
             this.webBrowserPreview.TabIndex = 15;
             this.webBrowserPreview.Visible = false;
             // 
@@ -205,18 +209,18 @@
             this.buttonSaveFile.UseVisualStyleBackColor = true;
             this.buttonSaveFile.Visible = false;
             // 
-            // label1
+            // labelSetKeyPreviewl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(619, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(197, 17);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Предпросмотр списка задач";
+            this.labelSetKeyPreviewl.AutoSize = true;
+            this.labelSetKeyPreviewl.Location = new System.Drawing.Point(347, 8);
+            this.labelSetKeyPreviewl.Name = "labelSetKeyPreviewl";
+            this.labelSetKeyPreviewl.Size = new System.Drawing.Size(197, 17);
+            this.labelSetKeyPreviewl.TabIndex = 17;
+            this.labelSetKeyPreviewl.Text = "Предпросмотр списка задач";
             // 
             // buttonProblemSetPick
             // 
-            this.buttonProblemSetPick.Location = new System.Drawing.Point(300, 325);
+            this.buttonProblemSetPick.Location = new System.Drawing.Point(180, 348);
             this.buttonProblemSetPick.Name = "buttonProblemSetPick";
             this.buttonProblemSetPick.Size = new System.Drawing.Size(100, 50);
             this.buttonProblemSetPick.TabIndex = 18;
@@ -239,6 +243,49 @@
             this.buttonMixedProblems.Text = "Разные задачи";
             this.buttonMixedProblems.UseVisualStyleBackColor = true;
             // 
+            // labelHintPreview
+            // 
+            this.labelHintPreview.AutoSize = true;
+            this.labelHintPreview.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelHintPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelHintPreview.Location = new System.Drawing.Point(90, 225);
+            this.labelHintPreview.Name = "labelHintPreview";
+            this.labelHintPreview.Size = new System.Drawing.Size(171, 70);
+            this.labelHintPreview.TabIndex = 21;
+            this.labelHintPreview.Text = "Обновление \r\nпредпросмотра\r\nсписка задач\r\n(Можно нажатием Enter)";
+            this.labelHintPreview.Visible = false;
+            // 
+            // labelHintSaveFile
+            // 
+            this.labelHintSaveFile.AutoSize = true;
+            this.labelHintSaveFile.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelHintSaveFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelHintSaveFile.Location = new System.Drawing.Point(87, 316);
+            this.labelHintSaveFile.Name = "labelHintSaveFile";
+            this.labelHintSaveFile.Size = new System.Drawing.Size(118, 70);
+            this.labelHintSaveFile.TabIndex = 22;
+            this.labelHintSaveFile.Text = "Сохранить файл\r\nна компьютер \r\nв формате\r\nHTML";
+            // 
+            // labelHintAddProblem
+            // 
+            this.labelHintAddProblem.AutoSize = true;
+            this.labelHintAddProblem.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelHintAddProblem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelHintAddProblem.Location = new System.Drawing.Point(97, 75);
+            this.labelHintAddProblem.Name = "labelHintAddProblem";
+            this.labelHintAddProblem.Size = new System.Drawing.Size(188, 36);
+            this.labelHintAddProblem.TabIndex = 23;
+            this.labelHintAddProblem.Text = "Добавить задачу в список \r\n(можно нажатием Enter)";
+            // 
+            // labelSetPick
+            // 
+            this.labelSetPick.AutoSize = true;
+            this.labelSetPick.Location = new System.Drawing.Point(11, 8);
+            this.labelSetPick.Name = "labelSetPick";
+            this.labelSetPick.Size = new System.Drawing.Size(151, 17);
+            this.labelSetPick.TabIndex = 24;
+            this.labelSetPick.Text = "Введите номер блока";
+            // 
             // roundButtonInfo
             // 
             this.roundButtonInfo.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -257,11 +304,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1103, 453);
+            this.ClientSize = new System.Drawing.Size(1131, 453);
+            this.Controls.Add(this.labelSetPick);
+            this.Controls.Add(this.labelHintAddProblem);
+            this.Controls.Add(this.labelHintSaveFile);
+            this.Controls.Add(this.labelHintPreview);
             this.Controls.Add(this.buttonMixedProblems);
             this.Controls.Add(this.textBoxProblemSetPick);
             this.Controls.Add(this.buttonProblemSetPick);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelSetKeyPreviewl);
             this.Controls.Add(this.buttonSaveFile);
             this.Controls.Add(this.webBrowserPreview);
             this.Controls.Add(this.roundButtonInfo);
@@ -310,10 +361,14 @@
         private RoundButton roundButtonInfo;
         private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.Button buttonSaveFile;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelSetKeyPreviewl;
         private System.Windows.Forms.Button buttonProblemSetPick;
         private System.Windows.Forms.TextBox textBoxProblemSetPick;
         private System.Windows.Forms.Button buttonMixedProblems;
+        private System.Windows.Forms.Label labelHintPreview;
+        private System.Windows.Forms.Label labelHintSaveFile;
+        private System.Windows.Forms.Label labelHintAddProblem;
+        private System.Windows.Forms.Label labelSetPick;
     }
 }
 

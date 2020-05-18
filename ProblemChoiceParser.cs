@@ -28,14 +28,18 @@ namespace Coursework5
         }
         private int ParseLevel(string s) => int.Parse(s);
         private int ParseNumber(string s) => int.Parse(s);
-
+        #region problem set parser
         public void ParseProblemSet(string key)
         {
-            char level = key[0];
+            //1,2,3 correspond to levels and 4 corresponds to a mixed set
+            char type = key[0];
             int seed = int.Parse(key.Substring(1, 2));
             int amount = int.Parse(key.Substring(3));
-
-            var tuple = ParseLevel(level);
+            Tuple<List<string>, List<string>> tuple=null;
+            if (type != '4')
+                tuple = ParseLevel(type);
+            else
+                tuple = ParseMixedSet();
             List<string> problems = tuple.Item1;
             List<string> answers = tuple.Item2;
             List<string> selectedProblems = new List<string>();
@@ -51,6 +55,25 @@ namespace Coursework5
                 answers.RemoveAt(pos);
             }
             ProblemsAnswers= new Tuple<List<string>, List<string>>(selectedProblems, selectedAnswers);
+        }
+
+        private Tuple<List<string>, List<string>> ParseMixedSet()
+        {
+            List<string> problems = new List<string>();
+            List<string> answers = new List<string>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                List<Problem> tasks = new List<Problem>() { new Level1(i), new Level2(i), new Level3(i) };
+                foreach (var task in tasks)
+                {
+                    task.GenerateProblemExpression();
+                    problems.Add(task.HtmlFormula);
+                    answers.Add(task.DisplayAnswers());
+                }
+
+            }
+            return new Tuple<List<string>, List<string>>(problems, answers);
         }
 
         private Tuple<List<string>, List<string>> ParseLevel(char level, int n = 100)
@@ -90,5 +113,6 @@ namespace Coursework5
             return new Tuple<List<string>, List<string>>(problems, answers);
 
         }
+        #endregion
     }
 }

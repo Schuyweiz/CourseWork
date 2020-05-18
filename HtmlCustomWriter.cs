@@ -122,11 +122,12 @@ namespace Coursework5
             return res;
         }
 
-        public string ShowTasks(string key)
+        public string ShowTasks(string key,bool header)
         {
             string res = intro;
             res += Style();
-            res += Header("Блок задач номер " + key);
+            if (header)
+                res += Header("Блок задач номер " + key);
             string col1 = "";
             string col2 = "";
             string col3 = "";
@@ -151,11 +152,12 @@ namespace Coursework5
             res += outro;
             return res;
         }
-        public string ShowTasksAnswers(string key)
+        public string ShowTasksAnswers(string key, bool header)
         {
             string res = intro;
             res += Style();
-            res += Header("Блок задач номер " + key);
+            if (header)
+                res += Header("Блок задач номер " + key);
             string col1 = "";
             string col2 = "";
             string col3 = "";
