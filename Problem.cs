@@ -56,6 +56,10 @@ namespace Coursework5
         {
             if (nom == denom)
                 return "1";
+            if (nom == -denom)
+                return "-1";
+            if (nom == 0)
+                return nom.ToString();
             string res = $"<span class=\"frac\"><sup>{nom}</sup>";
             res += "<span>&nbsp</span>";
             res += $"<sub>{denom}</sub></span>";

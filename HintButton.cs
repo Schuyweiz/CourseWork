@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Coursework5
 {
-    public class RoundButton : Button
+    public class HintButton : Button
     {
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {

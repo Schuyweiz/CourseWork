@@ -53,7 +53,7 @@
             this.labelHintSaveFile = new System.Windows.Forms.Label();
             this.labelHintAddProblem = new System.Windows.Forms.Label();
             this.labelSetPick = new System.Windows.Forms.Label();
-            this.roundButtonInfo = new Coursework5.RoundButton();
+            this.roundButtonInfo = new Coursework5.HintButton();
             this.SuspendLayout();
             // 
             // buttonPreviewGen
@@ -236,12 +236,13 @@
             // 
             // buttonMixedProblems
             // 
-            this.buttonMixedProblems.Location = new System.Drawing.Point(180, 272);
+            this.buttonMixedProblems.BackColor = System.Drawing.Color.Fuchsia;
+            this.buttonMixedProblems.Location = new System.Drawing.Point(244, 277);
             this.buttonMixedProblems.Name = "buttonMixedProblems";
             this.buttonMixedProblems.Size = new System.Drawing.Size(100, 50);
             this.buttonMixedProblems.TabIndex = 20;
             this.buttonMixedProblems.Text = "Разные задачи";
-            this.buttonMixedProblems.UseVisualStyleBackColor = true;
+            this.buttonMixedProblems.UseVisualStyleBackColor = false;
             // 
             // labelHintPreview
             // 
@@ -358,7 +359,7 @@
         private System.Windows.Forms.Button buttonAnswersOnOff;
         private System.Windows.Forms.Label labelHintHandPick;
         private System.Windows.Forms.Button buttonExit;
-        private RoundButton roundButtonInfo;
+        private HintButton roundButtonInfo;
         private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.Button buttonSaveFile;
         private System.Windows.Forms.Label labelSetKeyPreviewl;

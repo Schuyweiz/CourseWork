@@ -43,10 +43,10 @@ namespace Coursework5
             buttonAnswersOnOff.Click += AnswersOnOff;
             buttonExit.Click += OnExitButtonClick;
             #endregion
-            Parser = new ProblemChoiceParser();
+            Parser = new ProblemKeyParser();
             Problems = new List<string>();
             Answers = new List<string>();
-            ButtonHtmlGenY = buttonPreviewGen.Location.Y;
+            //ButtonHtmlGenY = buttonPreviewGen.Location.Y;
             AnswersOn = true;
             AmountOfProblems = 0;
             LabelPointY = labelAmountOfProblems.Location.Y + 17;
@@ -57,7 +57,6 @@ namespace Coursework5
 
             //initial form size
             FormSizeProblems = this.Size;
-            webBrowserPreview.Width += this.Width / 4;
 
             //Initializing controls lists for easier operations
             InitializeMainMenuControls();
@@ -69,7 +68,7 @@ namespace Coursework5
             //
             this.Size = new Size(300, 240);
             FormSizeMainMenu = this.Size;
-            var tempButtons = new List<Button>() { buttonHandPick, buttonMixedProblems, buttonProblemSetPick };
+            var tempButtons = new List<Button>() { buttonHandPick, buttonProblemSetPick, buttonMixedProblems };
             for (int i = 0; i < LevelButtons.Count; i++)
             {
                 LevelButtons[i].Location = new Point(35, i * 60 + 10);
@@ -122,11 +121,11 @@ namespace Coursework5
 
 
         #region Controls lists
-        private List<Control> MainMenuControls;
-        private List<Control> LevelControls;
-        private List<Control> HandPickControls;
-        private List<Control> ProblemSetPickControls;
-        private List<Control> MixedProblemsControls;
+        private List<Control> MainMenuControls { get; set; }
+        private List<Control> LevelControls { get; set; }
+        private List<Control> HandPickControls { get; set; }
+        private List<Control> ProblemSetPickControls { get; set; }
+        private List<Control> MixedProblemsControls { get; set; }
         private void InitializeMainMenuControls()
         {
             var res = new List<Control>();
@@ -285,9 +284,9 @@ namespace Coursework5
 
         #region Properties
         private bool AnswersOn { get; set; }
-        private List<string> Problems;
-        private List<string> Answers;
-        private int ButtonHtmlGenY { get; set; }
+        private List<string> Problems { get; set; }
+        private List<string> Answers { get; set; }
+        //private int ButtonHtmlGenY { get; set; }
         private int LabelPointY { get; set; }
         private int ProblemSetSeed { get; set; }
         private Size FormSizeProblems { get; set; }
@@ -295,7 +294,7 @@ namespace Coursework5
         readonly Random rng = new Random();
         private List<Button> LevelButtons { get; set; }
         private HtmlCustomWriter HTML { get; set; }
-        ProblemChoiceParser Parser { get; set; }
+        ProblemKeyParser Parser { get; set; }
         private bool Buttons { get; set; }
         private int AmountOfProblems { get; set; }
         private string FilePath { get; set; }
@@ -601,7 +600,8 @@ namespace Coursework5
             buttonPreviewGen.Enabled = true;
             buttonSaveFile.Enabled = false;
             labelSetKeyPreviewl.Text = "Предпросмотр списка заданий";
-
+            foreach (TextBox box in Controls.OfType<TextBox>())
+                box.Text = "";
             LabelPointY = labelListOfPbm.Location.Y + 17;
             FilePath = null;
             this.Size = FormSizeMainMenu;
@@ -642,8 +642,8 @@ namespace Coursework5
             ProblemSetKey = type.ToString();
         }
         private void ProblemSetKeyAssign(string amount) => ProblemSetKey = ProblemSetKey.Length == 1 ?
-            ProblemSetKey + ProblemSetSeed.ToString().PadLeft(2, '0') + amount :
-            ProblemSetKey[0] + ProblemSetSeed.ToString().PadLeft(2, '0') + amount;
+            ProblemSetKey + ProblemSetSeed.ToString().PadLeft(2, '0') + amount.PadLeft(2,'0') :
+            ProblemSetKey[0] + ProblemSetSeed.ToString().PadLeft(2, '0') + amount.PadLeft(2,'0');
         private void ProblemSetKeyTextBoxChecker(object sender, EventArgs e)
         {
             string key = textBoxProblemSetPick.Text;

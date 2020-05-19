@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace Coursework5
 {
-    public class ProblemChoiceParser
+    public class ProblemKeyParser
     {
         public Tuple<List<string>, List<string>> ProblemsAnswers { get; set; }
-        public ProblemChoiceParser() { }
+        public ProblemKeyParser() { }
         public Problem Parse(string problemNumStr)
         {
             string problemLevel = problemNumStr.Last().ToString();

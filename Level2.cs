@@ -38,7 +38,6 @@ namespace Coursework5
                 Xvalue = Xvalue == 0 ? Xvalue + 1 : Xvalue;
                 XvalueStr = Xvalue.ToString();
             }
-            //type 1 problems
             else
             {
                 this.Xvalue = rng.Next(2, 11);
@@ -49,8 +48,8 @@ namespace Coursework5
         }
         private void GenerateValuesGeneral()
         {
-            LogVal1 = rng.Next(0, 4);
-            LogVal2 = rng.Next(4 - LogVal1, 5 - LogVal1);
+            LogVal1 = rng.Next(1, 4);
+            LogVal2 = rng.Next(5 - LogVal1, 6 - LogVal1);
             BaseValue = rng.Next(2, 5);
             LogValue = LogVal1 + LogVal2;
             CoefX2 = rng.Next(1, (int)Math.Pow(BaseValue, LogVal2) / Math.Abs(Xvalue) + 1);
@@ -82,7 +81,7 @@ namespace Coursework5
             p.GeneratePolynom();
             //expression we have is (x-xValue)(coef*x-xValueNom2)=0
             Xvalue = p.xValue1;
-            //xVAlue2 will be put down in case it exists
+            //xValue2 will be put down in case it exists
 
             p.c+=rng.Next(0,2)==1? -(int)Math.Pow(BaseValue, LogValue): (int)Math.Pow(BaseValue, LogValue);
             //now we have the expression log(polynome+c) = log(c) = LogValue
@@ -90,7 +89,7 @@ namespace Coursework5
             XvalueStr = p.Calculate(Xvalue) > 0 ? Xvalue.ToString() : null;
             XvalueStr2 = p.Calculate(p.xValueNom2 / (double)p.xValueDenom2) > 0 ? Frac(p.xValueDenom2, p.xValueNom2) : null;
 
-            string logExpression = CoefChecker(p.a, "x<sup>2</sup>") + CoefChecker(p.b,"x")+ NumChecker(p.c);
+            string logExpression = p.b==0? CoefChecker(p.a, "x<sup>2</sup>") + NumChecker(p.c) : CoefChecker(p.a, "x<sup>2</sup>") + NumChecker(p.b)+"x"+ NumChecker(p.c);
             Lhs = Log(BaseValue, logExpression);
             Rhs = LogValue.ToString();
 

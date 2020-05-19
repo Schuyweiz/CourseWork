@@ -23,7 +23,7 @@ namespace Coursework5
 
         private void GenerateValue()
         {
-            Xvalue = rng.Next(-40, 40);
+            Xvalue = rng.Next(-40, 41);
             BaseValue = rng.Next(2, 5);
             LogValueCoef = rng.Next(2, 4);
             LogValue = rng.Next(2, 6 - LogValueCoef);
@@ -49,8 +49,7 @@ namespace Coursework5
         }
         private string Problem0()
         {
-            Lhs = Log(BaseValue, LogExpression) + NumChecker(RandSubstractionTerm = rng.Next(-LogValue, LogValue));
-            LogValue += RandSubstractionTerm;
+            Lhs = Log(BaseValue, LogExpression);
             Rhs = rng.Next(0, 2) == 1 && LogValue > 1 && LogValue == BaseValue ?
                  Log(BaseValue.ToString(), (int)Math.Pow(LogValue, BaseValue)) :
                 $"{LogValue}";
@@ -66,15 +65,15 @@ namespace Coursework5
         private string Problem2()
         {
             int logValuePart = rng.Next(-LogValue, LogValue);
-            Lhs = Log(BaseValue, LogExpression) + NumChecker(-logValuePart);
-            Rhs = $"{LogValue - logValuePart}";
+            Lhs = Log(BaseValue, LogExpression) + NumChecker(logValuePart);
+            Rhs = $"{LogValue + logValuePart}";
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
         }
         private string Problem3()
         {
             RandSubstractionTerm = rng.Next(-LogValue, LogValue);
-            Lhs = $"{CoefChecker(LogValueCoef, Log(BaseValue, $"x{NumChecker(Bvalue)}"))}" + NumChecker(-RandSubstractionTerm);
-            Rhs = $"{LogValue * LogValueCoef - RandSubstractionTerm}";
+            Lhs = $"{CoefChecker(LogValueCoef, Log(BaseValue, $"x{NumChecker(Bvalue)}"))}" + NumChecker(RandSubstractionTerm);
+            Rhs = $"{LogValue * LogValueCoef + RandSubstractionTerm}";
             return MakeFont(DisplayKey() + Lhs + " = " + Rhs);
         }
         public override void GenerateProblemExpression()
