@@ -54,6 +54,9 @@
             this.labelHintAddProblem = new System.Windows.Forms.Label();
             this.labelSetPick = new System.Windows.Forms.Label();
             this.roundButtonInfo = new Coursework5.HintButton();
+            this.labelHintPreviewHandPick = new System.Windows.Forms.Label();
+            this.labelHintProblemsInput = new System.Windows.Forms.Label();
+            this.labelHintSetRestoreInput = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonPreviewGen
@@ -301,11 +304,48 @@
             this.roundButtonInfo.UseVisualStyleBackColor = false;
             this.roundButtonInfo.Visible = false;
             // 
+            // labelHintPreviewHandPick
+            // 
+            this.labelHintPreviewHandPick.AutoSize = true;
+            this.labelHintPreviewHandPick.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelHintPreviewHandPick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelHintPreviewHandPick.Location = new System.Drawing.Point(90, 225);
+            this.labelHintPreviewHandPick.Name = "labelHintPreviewHandPick";
+            this.labelHintPreviewHandPick.Size = new System.Drawing.Size(117, 53);
+            this.labelHintPreviewHandPick.TabIndex = 25;
+            this.labelHintPreviewHandPick.Text = "Обновление \r\nпредпросмотра \r\nсписка задач";
+            // 
+            // labelHintProblemsInput
+            // 
+            this.labelHintProblemsInput.AutoSize = true;
+            this.labelHintProblemsInput.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelHintProblemsInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelHintProblemsInput.Location = new System.Drawing.Point(164, 37);
+            this.labelHintProblemsInput.Name = "labelHintProblemsInput";
+            this.labelHintProblemsInput.Size = new System.Drawing.Size(147, 36);
+            this.labelHintProblemsInput.TabIndex = 26;
+            this.labelHintProblemsInput.Text = "Нужно ввести число \r\nот 1 до 99 ";
+            // 
+            // labelHintSetRestoreInput
+            // 
+            this.labelHintSetRestoreInput.AutoSize = true;
+            this.labelHintSetRestoreInput.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelHintSetRestoreInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelHintSetRestoreInput.Location = new System.Drawing.Point(151, 73);
+            this.labelHintSetRestoreInput.Name = "labelHintSetRestoreInput";
+            this.labelHintSetRestoreInput.Size = new System.Drawing.Size(216, 70);
+            this.labelHintSetRestoreInput.TabIndex = 27;
+            this.labelHintSetRestoreInput.Text = "Нужно ввести пятизначный \r\nключ блока задач.\r\nКлюч обязательно начинается\r\nна 1,2" +
+    ",3 или 4";
+            // 
             // ProblemChoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1131, 453);
+            this.Controls.Add(this.labelHintSetRestoreInput);
+            this.Controls.Add(this.labelHintProblemsInput);
+            this.Controls.Add(this.labelHintPreviewHandPick);
             this.Controls.Add(this.labelSetPick);
             this.Controls.Add(this.labelHintAddProblem);
             this.Controls.Add(this.labelHintSaveFile);
@@ -370,6 +410,9 @@
         private System.Windows.Forms.Label labelHintSaveFile;
         private System.Windows.Forms.Label labelHintAddProblem;
         private System.Windows.Forms.Label labelSetPick;
+        private System.Windows.Forms.Label labelHintPreviewHandPick;
+        private System.Windows.Forms.Label labelHintProblemsInput;
+        private System.Windows.Forms.Label labelHintSetRestoreInput;
     }
 }
 

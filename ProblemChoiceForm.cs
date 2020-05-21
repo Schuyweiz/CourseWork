@@ -455,10 +455,15 @@ namespace Coursework5
             int intInput;
             if (int.TryParse(input, out intInput) && intInput > 0 && intInput < 100)
                 Preview(sender, e);
+            else if (intInput < 0 || intInput > 100)
+            {
+                ResetTextboxContent(textBoxAmtOfPb);
+                MessageBox.Show("Введите число от 1 до 99");
+            }
             else
             {
                 ResetTextboxContent(textBoxAmtOfPb);
-                MessageBox.Show("Неверный формат ввода");
+                MessageBox.Show("Неверный формат ввода.");
             }
         }
         #endregion
@@ -568,9 +573,19 @@ namespace Coursework5
         {
             foreach (Label label in Controls.OfType<Label>())
             {
-                if (label.Name.Contains("Hint") && textBoxProblemNum.Visible == true)
+                if (label.Name.Contains("Hint") &&
+                    (CurrentMenu == "Level 1" || CurrentMenu == "Level 2" || CurrentMenu == "Level 3" || CurrentMenu == "Mix")&&
+                    label != labelHintAddProblem && label != labelHintHandPick && label != labelHintSetRestoreInput && label!= labelHintPreviewHandPick)
                     label.Show();
-                else if (label.Name.Contains("Hint") && label != labelHintHandPick&& label!= labelHintAddProblem)
+                else if (label.Name.Contains("Hint") &&
+                    CurrentMenu == "Set" && label != labelHintAddProblem && label != labelHintHandPick &&
+                    label != labelHintProblemsInput)
+                {
+                    label.Show();
+                }
+                else if (label.Name.Contains("Hint") &&
+                    CurrentMenu == "Hand pick" && label != labelHintPreview && label != labelHintProblemsInput &&
+                    label!= labelHintSetRestoreInput)
                 {
                     label.Show();
                 }
@@ -614,6 +629,9 @@ namespace Coursework5
             buttonPreviewGen.Click -= Level1ChoiceProblems;
             buttonPreviewGen.Click -= Level2ChoiceProblems;
             buttonPreviewGen.Click -= Level3ChoiceProblems;
+            buttonPreviewGen.Click -= LevelTextBoxChecker;
+            buttonPreviewGen.Click -= MixedProblemsTextBoxChecker;
+            buttonPreviewGen.Click -= GeneratedMixedProblemsSet;
             buttonPreviewGen.Click -= ProblemSetKeyTextBoxChecker;
             buttonPreviewGen.Click -= Preview;
 
@@ -654,6 +672,11 @@ namespace Coursework5
                 Preview(sender, e);
                 textBoxProblemSetPick.Text = "";
                 textBoxProblemSetPick.Focus();
+            }
+            else if(key.Length != 5)
+            {
+                MessageBox.Show("Введите 4-х значное число");
+                ResetTextboxContent(textBoxProblemSetPick);
             }
             else if (key == "")
             {

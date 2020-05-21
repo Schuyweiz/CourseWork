@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Coursework5.HtmlCustomWriter" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgAAAAAAQAAAAAAhABAAAAAAAABAABAIBAAIQABEEAA=</HashCode>
+      <FileName>HtmlCustomWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.ProblemKeyParser" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAAAAAAAAAAAAAAAAACAAAAEgAAAAAAAAAAAAEA=</HashCode>
+      <FileName>ProblemKeyParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.Polynom" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAABAEABCAAAACgAQAAAAAEAEA=</HashCode>
+      <FileName>Polynom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.Problem" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EpUAAASUAJQAQEQ0AAAGIAAAAwgQBJBBAEcgAQAACQA=</HashCode>
+      <FileName>Problem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.Level1" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAQAABAAABAAAAAAAAAAAACAABBCAAAAAAQAAAA=</HashCode>
+      <FileName>Level1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.Level2" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAQAAAAQAJAAAAAAEAAgAAAAABBaAAAAAEQAACA=</HashCode>
+      <FileName>Level2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.Level3" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAGAAQAAAAAADAEAAAEBBAAAACAABBCACAAAAQAgAA=</HashCode>
+      <FileName>Level3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.ProblemChoiceForm" Collapsed="true">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>bghkAfgEXDggiEOQMBuQAegySgAiQRTmxmVIYQTAgAA=</HashCode>
+      <FileName>ProblemChoiceForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.SaveFile" Collapsed="true">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgACAAABAgAACAAAACAAAAAAAEIIAAAAAAAAA=</HashCode>
+      <FileName>SaveFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework5.HintButton" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HintButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -23,9 +23,9 @@ namespace Coursework5
 
         private void GenerateValue()
         {
-            Xvalue = rng.Next(-40, 41);
-            BaseValue = rng.Next(2, 5);
-            LogValueCoef = rng.Next(2, 4);
+            Xvalue = rng.Next(-80, 81);
+            BaseValue = rng.Next(2, 6);
+            LogValueCoef = rng.Next(2, 5);
             LogValue = rng.Next(2, 6 - LogValueCoef);
             Bvalue = (int)Math.Pow(BaseValue, LogValue) - Xvalue;
             LogExpression = $"x{NumChecker(Bvalue)}";
