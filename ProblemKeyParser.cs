@@ -29,7 +29,7 @@ namespace Coursework5
         private int ParseLevel(string s) => int.Parse(s);
         private int ParseNumber(string s) => int.Parse(s);
         #region problem set parser
-        public void ParseProblemSet(string key)
+        public void ParseProblemSet(string key, Tuple<List<string>, List<string>> pb)
         {
             //1,2,3 correspond to levels and 4 corresponds to a mixed set
             char type = key[0];
@@ -39,7 +39,7 @@ namespace Coursework5
             if (type != '4')
                 tuple = ParseLevel(type);
             else
-                tuple = ParseMixedSet();
+                tuple = pb;
             List<string> problems = tuple.Item1;
             List<string> answers = tuple.Item2;
             List<string> selectedProblems = new List<string>();
@@ -62,17 +62,54 @@ namespace Coursework5
             List<string> problems = new List<string>();
             List<string> answers = new List<string>();
 
-            for (int i = 0; i < 100; i++)
+            int key1 = 0;
+            int problemSeed1 = 0;
+            do
             {
-                List<Problem> tasks = new List<Problem>() { new Level1(i), new Level2(i), new Level3(i) };
-                foreach (var task in tasks)
+                Level2 task = new Level2(problemSeed1);
+                task.GenerateProblemExpression();
+                ;
+                if (!answers.Contains(task.DisplayAnswers()))
                 {
-                    task.GenerateProblemExpression();
                     problems.Add(task.HtmlFormula);
                     answers.Add(task.DisplayAnswers());
+                    key1++;
                 }
-
+                problemSeed1++;
             }
+            while (key1 <100);
+            int key2 = 0;
+            int problemSeed2 = 0;
+            do
+            {
+                Level2 task = new Level2(problemSeed2);
+                task.GenerateProblemExpression();
+                ;
+                if (!answers.Contains(task.DisplayAnswers()))
+                {
+                    problems.Add(task.HtmlFormula);
+                    answers.Add(task.DisplayAnswers());
+                    key2++;
+                }
+                problemSeed2++;
+            }
+            while (key2 < 100);
+            int key3 = 0;
+            int problemSeed3 = 0;
+            do
+            {
+                Level2 task = new Level2(problemSeed3);
+                task.GenerateProblemExpression();
+                ;
+                if (!answers.Contains(task.DisplayAnswers()))
+                {
+                    problems.Add(task.HtmlFormula);
+                    answers.Add(task.DisplayAnswers());
+                    key3++;
+                }
+                problemSeed3++;
+            }
+            while (key3 < 100);
             return new Tuple<List<string>, List<string>>(problems, answers);
         }
 

@@ -473,14 +473,21 @@ namespace Coursework5
         {
             List<string> problems = new List<string>();
             List<string> answers = new List<string>();
-
-            for (int i = 0; i < n; i++)
+            int key = 0;
+            int problemSeed = 0;
+            do
             {
-                Level1 task = new Level1(i);
+                Level1 task = new Level1(problemSeed);
                 task.GenerateProblemExpression();
-                problems.Add(task.HtmlFormula);
-                answers.Add(task.DisplayAnswers());
+                if (!answers.Contains(task.DisplayAnswers()))
+                {
+                    problems.Add(task.HtmlFormula);
+                    answers.Add(task.DisplayAnswers());
+                    key++;
+                }
+                problemSeed++;
             }
+            while (key < n);
             Problems = problems;
             Answers = answers;
         }
@@ -488,29 +495,46 @@ namespace Coursework5
         {
             List<string> problems = new List<string>();
             List<string> answers = new List<string>();
-            for (int i = 0; i < n; i++)
+            int key = 0;
+            int problemSeed = 0;
+            do
             {
-                Level2 task = new Level2(i);
+                Level2 task = new Level2(problemSeed);
                 task.GenerateProblemExpression();
-                problems.Add(task.HtmlFormula);
-                answers.Add(task.DisplayAnswers());
+                ;
+                if (!answers.Contains(task.DisplayAnswers()))
+                {
+                    problems.Add(task.HtmlFormula);
+                    answers.Add(task.DisplayAnswers());
+                    key++;
+                }
+                problemSeed++;
             }
+            while (key < n);
             Problems = problems;
             Answers = answers;
         }
         private void GenerateTasksLevel3(int n)
         {
             List<string> problems = new List<string>();
-            List<string> ans = new List<string>();
-            for (int i = 0; i < n; i++)
+            List<string> answers = new List<string>();
+            int key = 0;
+            int problemSeed = 0;
+            do
             {
-                Level3 task = new Level3(i);
+                Level3 task = new Level3(problemSeed);
                 task.GenerateProblemExpression();
-                problems.Add(task.HtmlFormula);
-                ans.Add(task.DisplayAnswers());
+                if (!answers.Contains(task.DisplayAnswers()))
+                {
+                    problems.Add(task.HtmlFormula);
+                    answers.Add(task.DisplayAnswers());
+                    key++;
+                }
+                problemSeed++;
             }
+            while (key < n);
             Problems = problems;
-            Answers = ans;
+            Answers = answers;
         }
         #endregion
 
@@ -675,7 +699,7 @@ namespace Coursework5
             }
             else if(key.Length != 5)
             {
-                MessageBox.Show("Введите 4-х значное число");
+                MessageBox.Show("Введите 5-и значное число");
                 ResetTextboxContent(textBoxProblemSetPick);
             }
             else if (key == "")
@@ -707,7 +731,8 @@ namespace Coursework5
 
         private void ProblemSetAssignProblems(string key)
         {
-            Parser.ParseProblemSet(key);
+            GeneratedMixedProblemsSet(new object(), new EventArgs());
+            Parser.ParseProblemSet(key, new Tuple<List<string>, List<string>>(Problems,Answers));
             Problems = Parser.ProblemsAnswers.Item1;
             Answers = Parser.ProblemsAnswers.Item2;
         }
@@ -762,21 +787,17 @@ namespace Coursework5
         }
         private void GeneratedMixedProblemsSet(object sender, EventArgs e)
         {
-            List<string> problems = new List<string>();
-            List<string> answers = new List<string>();
-            for (int i = 0; i < 100; i++)
-            {
-                List<Problem> tasks = new List<Problem>() { new Level1(i), new Level2(i), new Level3(i) };
-                foreach (var task in tasks)
-                {
-                    task.GenerateProblemExpression();
-                    problems.Add(task.HtmlFormula);
-                    answers.Add(task.DisplayAnswers());
-                }
-
-                Problems = problems;
-                Answers = answers;
-            }
+            GenerateTasksLevel1(100);
+            var problems1 =Problems;
+            var answers1 = Answers;
+            GenerateTasksLevel2(100);
+            var problems2=Problems;
+            var answers2=Answers;
+            GenerateTasksLevel3(100);
+            var problems3=Problems;
+            var answers3=Answers;
+            Problems = problems1.Concat(problems2).Concat(problems3).ToList();
+            Answers = answers1.Concat(answers2).Concat(answers3).ToList();
         }
         #endregion
     }
